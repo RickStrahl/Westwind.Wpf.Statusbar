@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33829.357
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Westwind.Wpf.Statusbar", "Westwind.WPF.Statusbar\Westwind.Wpf.Statusbar.csproj", "{BEFC1688-C42A-48EF-8441-5F5BEEC4D500}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "SampleApp", "SampleApp\SampleApp.csproj", "{B1EBD13B-96E6-434B-A217-5094294B3E4C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BEFC1688-C42A-48EF-8441-5F5BEEC4D500}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BEFC1688-C42A-48EF-8441-5F5BEEC4D500}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BEFC1688-C42A-48EF-8441-5F5BEEC4D500}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BEFC1688-C42A-48EF-8441-5F5BEEC4D500}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B1EBD13B-96E6-434B-A217-5094294B3E4C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B1EBD13B-96E6-434B-A217-5094294B3E4C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B1EBD13B-96E6-434B-A217-5094294B3E4C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B1EBD13B-96E6-434B-A217-5094294B3E4C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {FE6BE26B-C502-4643-88A2-FB47A55929CA}
+	EndGlobalSection
+EndGlobal

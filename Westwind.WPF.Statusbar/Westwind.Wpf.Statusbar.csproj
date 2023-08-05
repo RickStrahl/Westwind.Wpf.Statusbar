@@ -1,0 +1,26 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+	<PropertyGroup>
+		<TargetFramework>net6.0-Windows</TargetFramework>
+		<ImplicitUsings>enable</ImplicitUsings>
+		<UseWpf>true</UseWpf>
+		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+	</PropertyGroup>
+
+	<ItemGroup>
+	  <Resource Include="Assets\*.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Page Remove="Assets\Icons.xaml" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <PackageReference Include="FontAwesome6.Fonts" Version="2.5.1" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <Resource Include="Assets\Icons.xaml" />
+	</ItemGroup>
+
+</Project>
