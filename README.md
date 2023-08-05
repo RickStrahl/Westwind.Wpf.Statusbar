@@ -176,7 +176,9 @@ In order to use the `StatusbarHelper` class you need to make available the prima
 For example you can embed a status bar control like this into your own Xaml:
 
 ```xml
-<StatusBar  Grid.Row="3" Height="30"  VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+<StatusBar  
+    Grid.Row="3" Height="30"  
+    VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
     <StatusBar.ItemsPanel>
         <ItemsPanelTemplate>
             <Grid>
@@ -205,6 +207,13 @@ For example you can embed a status bar control like this into your own Xaml:
     </StatusBarItem>
 </StatusBar>
 ```
+
+> #### Status Bar Recommendations
+> For best effect, there are a couple of recommendations for any custom status bars you use with `StatusHelper`:
+>
+>
+> * Make the Statusbar a **fixed height** to avoid resizing on Flashing
+> * Make the icon a fixed height and width (square ideally)
 
 In the constructor of Window or Control that hosts this control you can then assign the `StatusbarHelper` as a property like this:
 
