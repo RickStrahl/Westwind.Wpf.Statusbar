@@ -8,7 +8,7 @@ This is a small WPF library that provides Statusbar functionality in a couple of
 ![](ScreenCapture.gif)
 
 ## Installation and base Usage
-You can install this library from NuGet
+You can install this library from NuGet:
 
 ```ps
 > dotnet add package Westwind.Wpf.Statusbar
@@ -27,6 +27,41 @@ And to use the control in a Window or Control:
 ```xml
 <statusbar:StatusbarControl Grid.Row="1" Name="Statusbar" />
 ````
+
+To use the `StatusbarHelper` with an existing Statusbar you need to attach the helper to the parent control or window and pass in the StatusTextblock control and Image icon control.
+
+```csharp
+ public partial class MyWindow : Window
+ {
+    public StatusBarHelper Status { get;  }
+
+    public MyWindow()
+    {
+        InitializeComponent();
+            
+        Status = new StatusBarHelper(StatusText, StatusIcon);
+        
+        ...
+    } 
+ }        
+```
+
+To update status messages:
+
+```csharp
+// Using the control: shows status and resets to default  after 3 secs
+Statusbar.ShowStatusSuccess("Yay. The operation was successful! ", 3000);
+
+// Using the control: shows status and resets to default  after 2 secs
+Statusbar.ShowStatusError("Ooops. Something went wrong!",2000);
+
+// Using StatusHelper: shows status and resets to default  after 2 secs
+this.Status.ShowStatusWarning("Careful... this might go sideways.", 2000);
+
+// Using StatusHelper: shows spinning icon indefinitely
+this.Status.ShowStatusProgress("This may take a minute...");
+```
+
 
 ## Features
 
