@@ -7,7 +7,11 @@
     <UserControl.Resources>
         <ResourceDictionary Source="Assets/icons.xaml" />
     </UserControl.Resources>
-    <StatusBar  Grid.Row="3" Height="30"  VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+    <StatusBar x:Name="StatusbarInstance"  x:FieldModifier="public"
+               VerticalAlignment="Bottom" 
+               HorizontalAlignment="Stretch"
+               Height="30"
+               >
         <StatusBar.ItemsPanel>
             <ItemsPanelTemplate>
                 <Grid>

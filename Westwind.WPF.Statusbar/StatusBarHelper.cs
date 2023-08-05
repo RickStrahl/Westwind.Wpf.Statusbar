@@ -1,4 +1,5 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Threading;
@@ -33,6 +34,15 @@ namespace Westwind.Wpf.Statusbar
         /// </summary>
         public TextBlock StatusText { get; set; }
 
+        /// <summary>
+        /// The default status text to revert to when status is reset to default
+        /// </summary>
+        public string DefaultStatusText { get; set; } = "Ready";
+
+        /// <summary>
+        /// Default icon image source when status is reset to default
+        /// </summary>
+        public ImageSource DefaultStatusIcon { get; set; } = StatusIcons.Default.DefaultIcon;
 
         /// <summary>
         /// An Image  control that displays the icon that is displayed.
@@ -50,12 +60,6 @@ namespace Westwind.Wpf.Statusbar
 
         
         /// <summary>
-        /// The Default color that's used when the timeout is up and reverts
-        /// to a default state.
-        /// </summary>
-        public Brush DefaultIconColor { get; set; } = Brushes.LimeGreen;
-
-        /// <summary>
         /// Original Icon Height to reset to. If 0 uses value from XAML
         /// If value is set to auto, 15 is used
         /// </summary>
@@ -71,15 +75,43 @@ namespace Westwind.Wpf.Statusbar
         /// <summary>
         /// Default Status Icon Images
         /// </summary>
-        public StatusIcons StatusIcons { get; set; } 
+        public StatusIcons StatusIcons { get; set; }
+
+        /// <summary>
+        /// Internal flag that determines if the last operation fired
+        /// should reset the status to the default status when the timeout is up.
+        ///
+        /// This allows prevents non-timeout operations to not accidentally
+        /// be reset by a previous operation (for example a Progress call
+        /// in progress, with a success before that hasn't reset yet).
+        /// </summary>
+        private bool dontResetToDefault = false;
 
 
+        /// <summary>
+        /// Constructor that accepts a main panel TextBlock and icon Image control
+        /// that are used for Statusbar updates.
+        /// </summary>
+        /// <param name="statusText"></param>
+        /// <param name="statusIconImage"></param>
         public StatusBarHelper(TextBlock statusText, Image statusIconImage)
         {            
             StatusText = statusText;
             StatusImage = statusIconImage;
             StatusIcons = StatusIcons.Default;
 
+            CaptureInitialIconSize();
+        }
+
+
+        /// <summary>
+        /// Capture the initial icon size so we can reset to it
+        /// when flashing the icon. Size needs to be a fixed value
+        /// so recommend that you set an explicit height on the default
+        /// icon image in the status bar.
+        /// </summary>
+        private void CaptureInitialIconSize()
+        {
             if (!double.IsNaN(OriginalIconHeight) && OriginalIconHeight != 0)
                 StatusImage.Height = OriginalIconHeight;
             else
@@ -97,6 +129,7 @@ namespace Westwind.Wpf.Statusbar
                     StatusImage.Width = 15F;
             }
         }
+
 
         #region High level Status Operations
 
@@ -165,7 +198,7 @@ namespace Westwind.Wpf.Statusbar
 
             ShowStatus(message, timeout, imageSource, flashIcon: flashIcon);
         }
-        
+
 
         /// <summary>
         /// Displays an Progress message using common defaults including a spinning icon
@@ -174,6 +207,7 @@ namespace Westwind.Wpf.Statusbar
         /// <param name="timeout">optional timeout. -1 means don't time out</param>
         /// <param name="imageSource">Optional imageSource. Defaults to spinning circle</param>
         /// <param name="spin">Determines whether the icons should spin (true by default)</param>
+        /// <param name="flashIcon">If true flashes the icon when first displayed</param>
         public void ShowStatusProgress(string message, int timeout = -1, ImageSource imageSource = null, bool spin = true, bool flashIcon = false)
         {
             if (timeout == -1)
@@ -250,6 +284,7 @@ namespace Westwind.Wpf.Statusbar
         }
 
 
+
         private void ShowStatusInternal(string message = null, 
             int milliSeconds = 0,
             ImageSource imageSource = null,
@@ -260,13 +295,13 @@ namespace Westwind.Wpf.Statusbar
 
             if (imageSource == null)
             {
-                imageSource = StatusIcons.DefaultIcon;
+                imageSource = DefaultStatusIcon;
             }
             SetStatusIcon(imageSource, spin);
 
             if (message == null)
             {
-                message = "Ready";
+                message = DefaultStatusText;
                 SetStatusIcon();
             }
 
@@ -274,9 +309,19 @@ namespace Westwind.Wpf.Statusbar
 
             if (milliSeconds > 0)
             {
+                dontResetToDefault = false;
+
                 // debounce rather than delay so if something else displays
                 // a message the delay timer is 'reset'
-                debounce.Debounce(milliSeconds, (p) => ShowStatus(null, 0), null);
+                debounce.Debounce(milliSeconds, (p) =>
+                {
+                    if (!dontResetToDefault)
+                        ShowStatus(null, 0);
+                }, null);
+            }
+            else
+            {
+                dontResetToDefault = true;
             }
 
             if (flashIcon)
@@ -294,7 +339,7 @@ namespace Westwind.Wpf.Statusbar
         public void SetStatusIcon()
         {
             StatusImage.RenderTransform = null;
-            StatusImage.Source = StatusIcons.DefaultIcon;
+            StatusImage.Source = DefaultStatusIcon;
         }
 
         /// <summary>

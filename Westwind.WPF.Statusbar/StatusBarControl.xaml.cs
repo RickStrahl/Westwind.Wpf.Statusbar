@@ -7,12 +7,39 @@ using System.Windows.Media.Imaging;
 namespace Westwind.Wpf.Statusbar
 {
     /// <summary>
-    /// Interaction logic for StatusBarControl.xaml
+    /// Generic Statusbar control that has:
+    ///
+    /// * 4 panels for status display
+    /// * 1 icon that changes based on display mode
+    /// * 1 main panel that is updated by helpers
+    /// * Auto-reset to default after timeout
+    ///
+    /// You can use the ShowStatusXXX methods to display
+    /// status messages in the first panel and update
+    /// the icon according to state using default config.
+    ///
+    /// If you need to customize icons, default message and
+    /// other items use the `Status` property to customize.
     /// </summary>
+    /// <remarks>
+    /// This control contains a WPF Statusbar control,
+    /// so you can still customize the raw statusbar
+    /// via the `StatusbarInstance` property in code which
+    /// allows to add and modify panels and other properties.
+    /// </remarks>
     public partial class StatusbarControl : UserControl
     {
+
+        /// <summary>
+        /// StatusbarHelper instance that provides core
+        /// status bar display functionality
+        /// </summary>
         public StatusBarHelper Status { get;  }
 
+        
+        /// <summary>
+        /// Initialization
+        /// </summary>
         public StatusbarControl()
         {
             InitializeComponent();
@@ -69,6 +96,7 @@ namespace Westwind.Wpf.Statusbar
         /// <param name="timeout">optional timeout. -1 means don't time out</param>
         /// <param name="imageSource">Optional imageSource. Defaults to spinning circle</param>
         /// <param name="spin">Determines whether the icons should spin (true by default)</param>
+        /// <param name="flashIcon">If true flashes the icon when initially displayed</param>
         public void ShowStatusProgress(string message, int timeout = -1, ImageSource imageSource = null,
             bool spin = true, bool flashIcon = false)
         {
@@ -76,21 +104,38 @@ namespace Westwind.Wpf.Statusbar
         }
 
 
-
+        /// <summary>
+        /// Sets the text for the second, center status panel
+        /// </summary>
+        /// <param name="text"></param>
         public void SetStatusCenter(string text)
         {
             StatusCenter.Content = text;
         }
+
+        /// <summary>
+        /// Sets content for the second, center status panel
+        /// </summary>
+        /// <param name="control"></param>
         public void SetStatusCenter(FrameworkElement control)
         {
             StatusCenter.Content = control;
         }
 
+
+        /// <summary>
+        /// Sets the text for the third, right status panel
+        /// </summary>
+        /// <param name="text"></param>
         public void SetStatusRight(string text)
         {
             StatusRight.Content = text;
         }
 
+        /// <summary>
+        /// Sets content for the second, center status panel
+        /// </summary>
+        /// <param name="control"></param>
         public void SetStatusRight(FrameworkElement control)
         {
             StatusRight.Content = control;

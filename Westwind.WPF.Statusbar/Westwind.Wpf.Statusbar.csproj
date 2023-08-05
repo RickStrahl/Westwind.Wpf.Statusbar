@@ -1,26 +1,44 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFramework>net6.0-Windows</TargetFramework>
-		<ImplicitUsings>enable</ImplicitUsings>
+		<TargetFrameworks>net6.0-Windows;net472</TargetFrameworks>
+		<Version>0.1.1</Version>
 		<UseWpf>true</UseWpf>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
+
+		<Title>West Wind Wpf Statusbar Control and Helper</Title>
+		<Description>
+			A small WPF library that provides a simple status bar control
+			with animated status icons and various different update modes
+			to easily create nice looking error messages.
+
+			Library includes a generic Statusbar control that can be dropped onto
+			a form, or a generic StatusHelper class that can be applied to
+			your own status bar using a custom layout.
+		</Description>
+		<Summary>A small WPF library that provides a simple status bar control with animated status icons and various different update modes to easily create nice looking error messages.</Summary>
+		<PackageCopyright>Rick Strahl, West Wind Technologies 2023</PackageCopyright>
+		<PackageTags>Statusbar WPF Windows Westwind</PackageTags>
+		<PackageProjectUrl>http://github.com/rickstrahl/westwind.Wpf.Statusbar</PackageProjectUrl>
+
+		<PackageIcon>icon.png</PackageIcon>
+		<PackageLicenseFile>LICENSE.MD</PackageLicenseFile>
+	</PropertyGroup>
+
+
+	<PropertyGroup Condition=" '$(Configuration)' == 'Release' ">
+		<DebugType>embedded</DebugType>
+		<GenerateDocumentationFile>true</GenerateDocumentationFile>
+		<GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+		<PackageOutputPath>./nupkg</PackageOutputPath>
+		<PublishRepositoryUrl>true</PublishRepositoryUrl>
+		<DefineConstants>RELEASE</DefineConstants>
 	</PropertyGroup>
 
 	<ItemGroup>
-	  <Resource Include="Assets\*.png" />
-	</ItemGroup>
+		<Resource Include="Assets\Icons.xaml" />
 
-	<ItemGroup>
-	  <Page Remove="Assets\Icons.xaml" />
+		<None Include="icon.png" Pack="true" PackagePath="" />
+		<None Include="LICENSE.MD" Pack="true" PackagePath="" />
 	</ItemGroup>
-
-	<ItemGroup>
-	  <PackageReference Include="FontAwesome6.Fonts" Version="2.5.1" />
-	</ItemGroup>
-
-	<ItemGroup>
-	  <Resource Include="Assets\Icons.xaml" />
-	</ItemGroup>
-
 </Project>

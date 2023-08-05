@@ -1,8 +1,32 @@
 # WPF Statusbar Helper and Control
+ <a href="https://www.nuget.org/packages/Westwind.Wpf.Statusbar/">![](https://img.shields.io/nuget/v/Westwind.Wpf.Statusbar.svg)</a> ![](https://img.shields.io/nuget/dt/Westwind.Wpf.Statusbar.svg)
+
+![](Westwind.Wpf.Statusbar/icon.png)
 
 This is a small WPF library that provides Statusbar functionality in a couple of different ways. 
 
 ![](ScreenCapture.gif)
+
+## Installation and base Usage
+You can install this library from NuGet
+
+```ps
+> dotnet add package Westwind.Wpf.Statusbar
+```
+
+To use the control add the following namespace to WPF Windows or controls:
+
+```xml
+<Window x:Class="SampleApp.MainWindow" ...
+        xmlns:statusbar="clr-namespace:Westwind.Wpf.Statusbar;assembly=Westwind.Wpf.Statusbar"
+>
+```
+
+And to use the control in a Window or Control:
+
+```xml
+<statusbar:StatusbarControl Grid.Row="1" Name="Statusbar" />
+````
 
 ## Features
 
