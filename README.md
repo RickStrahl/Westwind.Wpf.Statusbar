@@ -22,7 +22,7 @@ Both of these tools provide the following features:
 * Icon animation for state change
 * Animated progress icon
 * Icon and text reversion to a default message and icon
-
+* Stock icons provided, but you can override with any ImageSource
 
 
 ## Usage
@@ -41,6 +41,8 @@ and the actual control:
 ```xml
 <statusbar:StatusbarControl Grid.Row="1" Name="Statusbar" />
 ````
+
+In a window it looks like this:
 
 ```xml
 <Window x:Class="SampleApp.MainWindow"
@@ -68,7 +70,7 @@ and the actual control:
 </Window>
 ```
 
-### Showing Status Messages
+#### Showing Status Messages
 Once the control is on the page you can simply call the properties to manipulate the status behavior.
 
 The following are examples that demonstrate the basic operations *(note you wouldn't run them one after the other like this but each before/after an operation has completed)*
@@ -89,7 +91,7 @@ Statusbar.Status.ShowStatusProgress("This may take a minute...");
 
 Note that you can either use the control's methods directly (first two examples) or you can use the `Status` property which is the `StatusbarHelper` control that does the actual work and can also be used independently of this control.#\
 
-### Updating Non-Primary Panels
+#### Updating Non-Primary Panels
 The various status methods can be used to update the status bar's primary text panel and icon, but you can also set the optional center and right panels and assign text or content.
 
 ```csharp
@@ -107,7 +109,7 @@ Statusbar.SetStatusRight(sp);
 Statusbar.StatusText.Text = "Pull it!";
 ```
 
-## Statusbar Helper
+### Statusbar Helper
 The statusbar control is a quick way to drop a basic statusbar control on a page, but if you want more control over your status bar layout you can also create and manage your own Status bar XAML layout.
 
 In order to use the `StatusbarHelper` class you need to make available the primary text control and an image control.
@@ -174,3 +176,13 @@ private void BtnSuccess_OnClick(object sender, RoutedEventArgs e)
 }
 ```
 
+## License
+This library is published under **MIT license** terms.
+
+**Copyright &copy; 2023 Rick Strahl, West Wind Technologies**
+
+Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
