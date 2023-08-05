@@ -31,8 +31,9 @@ Both of these tools provide the following features:
 The status bar control can just be dropped onto a form by adding the following namespace:
 
 ```xml
-<Window ...
-xmlns:statusbar="clr-namespace:Westwind.Wpf.Statusbar;assembly=Westwind.Wpf.Statusbar">
+<Window x:Class="SampleApp.MainWindow" ...
+        xmlns:statusbar="clr-namespace:Westwind.Wpf.Statusbar;assembly=Westwind.Wpf.Statusbar"
+>
 ```
 
 and the actual control:
