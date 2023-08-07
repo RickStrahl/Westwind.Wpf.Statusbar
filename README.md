@@ -1,7 +1,9 @@
+<img src="Westwind.Wpf.Statusbar/icon.png" height=64 align=right />
+
 # WPF Statusbar Helper and Control
+ 
  <a href="https://www.nuget.org/packages/Westwind.Wpf.Statusbar/">![](https://img.shields.io/nuget/v/Westwind.Wpf.Statusbar.svg)</a> ![](https://img.shields.io/nuget/dt/Westwind.Wpf.Statusbar.svg)
 
-![](Westwind.Wpf.Statusbar/icon.png)
 
 This is a small WPF library that provides Statusbar functionality in a couple of different ways. 
 
@@ -10,6 +12,16 @@ This is a small WPF library that provides Statusbar functionality in a couple of
 
 
 ![](ScreenCapture.gif)
+
+## Features
+
+* Easy to use, single method status updates from anywhere in your app
+* Status relevant icons change based on display mode
+* Animated icon 'flashing' when initially rendered (optional)
+* Spinning icon support typically for progress operations
+* Status text and icon can expire and revert to default after timeout
+* Immediate UI update handling even in synchronous code  
+* Customize icons globally, per instance or per method using `ImageSource`
 
 ## Installation and base Usage
 You can install this library from NuGet:
