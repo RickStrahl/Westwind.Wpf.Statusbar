@@ -248,6 +248,163 @@ private void BtnSuccess_OnClick(object sender, RoutedEventArgs e)
 }
 ```
 
+## Using Custom Icons
+The status bar uses default icons that are internally provided via a XAML resource. You can override these default resources by reassing the default `StatusIcons` assignments in a few ways.
+
+
+### Default Icon Configuration
+By default the `StatusbarHelper` and `StatusbarControl` are using default icons that are embedded as XAML resources in `icons.xaml`. The default resource is accessible via the following resource and resource keys:
+
+```cs
+public StatusIcons()
+{
+    var dict = new ResourceDictionary()
+    {
+        Source = new Uri("pack://application:,,,/Westwind.Wpf.Statusbar;component/Assets/icons.xaml")
+    };
+    if (!Application.Current.Resources.Contains("circle_greenDrawingImage"))
+        Application.Current.Resources.MergedDictionaries.Add(dict);
+
+    DefaultIcon = dict["circle_greenDrawingImage"] as DrawingImage;
+    SuccessIcon = dict["circle_checkDrawingImage"] as DrawingImage;
+    ErrorIcon = dict["triangle_exclamationDrawingImage"] as DrawingImage;
+    WarningIcon = dict["triangle_warningDrawingImage"] as DrawingImage;
+    ProgressIcon = dict["circle_notchDrawingImage"] as DrawingImage;
+}
+```
+
+These icons are exposed as the default in:
+
+```cs
+StatusbarHelper.StatusIcons = StatusbarIcons.Default;
+```
+
+All icons are ImageSource objects, so they can be replaced with a new image source, which can come from other XAML resources, bitmap images or even from other tools like the `FontAwesome6` library.
+
+### Overriding the Default Icons
+There are three ways to override the default icons:
+
+* Globally - Overide the `StatusIcon.Default`  Icon set
+* Per Control - Override the `StatusbarHelper.StatusIcons` Icon set
+* Per Call - Override the `imageSource` parameter on the various `ShowStatusXXX()` calls
+
+#### Globally override StatusIcon.Default
+The `StatusIcon.Default` static object contains the default icons that are used by default and are assigned by default to a new instance of the `StatusbarHelper` and by extension the `StatusbarControl` which uses the helper for rendering. 
+
+You can assign a new set of icons to the `StatusIcon.Default` class which contains `ImageSource` properties for each of the various icons. By overriding these ImageSource properties before any controls or helpers are created you are effectively globally overriding the value all icons that are rendered.
+
+For example, to override the `SuccessIcon` you could use the following code:
+
+```cs
+// ImageAwesome creates a DrawingImage control
+image = new ImageAwesome()
+{
+    PrimaryColor = Brushes.ForestGreen,
+    Height = 15,
+    Icon = EFontAwesomeIcon.Solid_SquareCheck
+};
+
+// globally override SuccessIcon for all instance that use the default icons
+StatusIcons.Default.SuccessIcon = image.Source;
+```
+
+#### Override StatusbarHelper Instance
+If you want to override behavior of a single `StatusbarHelper` or `StatusbarControl` you can do so via the Helper's `StatusIcons` class. You access it both directly on a `StatusbarHelper.StatusIcons` instance or on the `StatusbarControl.Status.StatusIcons` property.
+
+
+Here's an example using the [FontAwesome6 library](https://github.com/MartinTopfstedt/FontAwesome6) which among other things can create ImageSources from FontAwesome icons using the `ImageAwesome` class. Here I'm assigning to a `StatusbarControl` and it's `StatusIcons` at the control level.
+
+```csharp
+private void BtnToggleIcons_OnChecked(object sender, RoutedEventArgs e)
+{
+    ToggleState = !ToggleState;
+
+    if (ToggleState)
+    {
+        ActiveIconSet = "Custom Images: Font Awesome 6";
+
+        // You can override the control or StatusbarHelper icons
+
+        // Create and assign a NEW icon set so we don't overwrite default icons
+        var icons = new StatusIcons();
+        Statusbar.Status.StatusIcons = icons;
+        
+        // if you want to retain existing icons assign them
+        // icons.DefaultIcon = StatusIcons.Default.DefaultIcon
+
+        // create new custom icons for the error icon from FontAwesome6 icons
+        var image = new ImageAwesome()
+        {
+            PrimaryColor = Brushes.Green,
+            Height = 15,
+            Icon = EFontAwesomeIcon.Solid_House
+        };
+        icons.DefaultIcon = image.Source;
+
+        image = new ImageAwesome()
+        {
+            PrimaryColor = Brushes.ForestGreen,
+            Height = 15,
+            Icon = EFontAwesomeIcon.Solid_SquareCheck
+        };
+        icons.SuccessIcon = image.Source;
+
+        // create a custom icon for the error icon from FontAwesome6 icons
+        image = new ImageAwesome()
+        {
+            PrimaryColor = Brushes.DarkGoldenrod,
+            Height = 15,
+            Icon = EFontAwesomeIcon.Solid_CircleRadiation
+        };
+        icons.WarningIcon = image.Source;
+
+        image = new ImageAwesome()
+        {
+            PrimaryColor = Brushes.Firebrick,
+            Height = 15,
+            Icon = EFontAwesomeIcon.Solid_CircleExclamation
+        };
+        icons.ErrorIcon = image.Source;
+
+        image = new ImageAwesome()
+        {
+            PrimaryColor = Brushes.SteelBlue,
+            Height = 15,
+            Icon = EFontAwesomeIcon.Solid_Spinner
+        };
+        icons.ProgressIcon = image.Source;
+    }
+    else
+    {
+        ActiveIconSet = "Default Xaml Icons";
+        Statusbar.Status.StatusIcons = StatusIcons.Default;
+    }
+
+    btnToggleIcons.Content = ActiveIconSet;
+    Statusbar.Status.SetStatusIcon();
+
+    // Alternately you can also override the StatusIcon.Default icons 
+    // and have them overridden anywhere the default icons are used
+    // as a 'global' icon override:
+    //
+    // StatusbarIcons.DefaultIcon = image.Source;  // overrides anywhere the default is used
+
+}
+```
+
+If you're using a status bar helper directly you'd instead use:
+
+```cs
+StatusHelper.StatusIcons = icons;
+```
+
+#### Per call Icon Overrides
+Each of the control and helper `ShowStatusXXX()` methods have a parameter override that let you specify an `imageSource` parameter that effectively lets you use any icon you want for just a single call.
+
+
+
+
+
 ## License
 This library is published under **MIT license** terms.
 

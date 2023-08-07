@@ -65,9 +65,20 @@ namespace SampleApp
             Statusbar.Status.ShowStatusSuccess("Yay. All done with success! ");
         }
 
-        private void BtnRaw_OnClick(object sender, RoutedEventArgs e)
+        private async void BtnRaw_OnClick(object sender, RoutedEventArgs e)
         {
-            Statusbar.Status.ShowStatus("Customized output. ", 6000, StatusIcons.Default.SuccessIcon, spin: true);
+
+            var image = new ImageAwesome()
+            {
+                PrimaryColor = Brushes.SteelBlue,
+                Height = 15,
+                Icon = EFontAwesomeIcon.Solid_Spinner
+            };
+            Statusbar.Status.ShowStatusProgress("Custom icon spinner (from FontAwesome)",imageSource: image.Source, spin: true);
+
+            await Task.Delay(3000);
+
+            Statusbar.Status.ShowStatus("Using a different stock icon customized output. ", 3000, StatusIcons.Default.SuccessIcon, spin: true);
         }
 
         private void BtnUpdatePanels_OnClick(object sender, RoutedEventArgs e)
@@ -102,7 +113,7 @@ namespace SampleApp
                 // create a custom icon for the error icon from FontAwesome6 icons
                 var image = new ImageAwesome()
                 {
-                    PrimaryColor = Brushes.ForestGreen,
+                    PrimaryColor = Brushes.Green,
                     Height = 15,
                     Icon = EFontAwesomeIcon.Solid_House
                 };
@@ -159,6 +170,7 @@ namespace SampleApp
             // StatusbarIcons.DefaultIcon = image.Source;  // overrides anywhere the default is used
 
         }
+
 
     }
 }
