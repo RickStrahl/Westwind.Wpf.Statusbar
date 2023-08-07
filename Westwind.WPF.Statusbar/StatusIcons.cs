@@ -29,8 +29,8 @@ namespace Westwind.Wpf.Statusbar
 
             DefaultIcon = dict["circle_greenDrawingImage"] as DrawingImage;
             SuccessIcon = dict["circle_checkDrawingImage"] as DrawingImage;
-            ErrorIcon = dict["triangle_exclamationDrawingImage"] as DrawingImage;
-            WarningIcon = dict["triangle_warningDrawingImage"] as DrawingImage;
+            ErrorIcon = dict["circle_exclamationDrawingImage"] as DrawingImage;
+            WarningIcon = dict["triangle_exclamationDrawingImage"] as DrawingImage;
             ProgressIcon = dict["circle_notchDrawingImage"] as DrawingImage;
         }
 
