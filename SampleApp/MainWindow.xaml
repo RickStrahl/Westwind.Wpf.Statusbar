@@ -6,11 +6,17 @@
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
             <RowDefinition Height="*"/>
             <RowDefinition Height ="Auto"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Width="200" Margin="20">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button  Name="btnToggleIcons" ToolTip="Toggle Icons between stock and custom Images"
+                     Click="BtnToggleIcons_OnChecked" Padding="5" Margin="5"></Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Width="200" Margin="20 10 20 20">
             <Button Name="btnSuccess" Click="BtnSuccess_OnClick" Margin="0 10">Success</Button>
             <Button Name="btnError" Click="BtnError_OnClick" Margin="0 10">Error</Button>
             <Button Name="btnWarning" Click="BtnWarning_OnClick" Margin="0 10">Warning</Button>
@@ -20,6 +26,6 @@
         </StackPanel>
 
 
-        <statusbar:StatusbarControl Grid.Row="1" Name="Statusbar" />
+        <statusbar:StatusbarControl Grid.Row="2" Name="Statusbar" />
     </Grid>
 </Window>

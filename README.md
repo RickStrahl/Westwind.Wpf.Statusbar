@@ -32,18 +32,18 @@ And to use the control in a Window or Control:
 <statusbar:StatusbarControl Grid.Row="1" Name="Statusbar" />
 ````
 
-Alternately you can use the `StatusbarHelper` with your own existing Statusbar, provided it has an icon `Image` and a main `TextBlock`. You can attach the `StatusBarHelper` to the parent control or window and pass in the `Textblock` control and `Image` icon control which is then automated.
+Alternately you can use the `StatusbarHelper` with your own existing Statusbar, provided it has an icon `Image` and a main `TextBlock`. You can attach the `StatusbarHelper` to the parent control or window and pass in the `Textblock` control and `Image` icon control which is then automated.
 
 ```csharp
  public partial class MyWindow : Window
  {
-    public StatusBarHelper Status { get;  }
+    public StatusbarHelper Status { get;  }
 
     public MyWindow()
     {
         InitializeComponent();
             
-        Status = new StatusBarHelper(StatusText, StatusIcon);
+        Status = new StatusbarHelper(StatusText, StatusIcon);
         
         ...
     } 
@@ -225,13 +225,13 @@ In the constructor of Window or Control that hosts this control you can then ass
 ```csharp
  public partial class MyWindow : Window
  {
-    public StatusBarHelper Status { get;  }
+    public StatusbarHelper Status { get;  }
 
     public MyWindow()
     {
         InitializeComponent();
             
-        Status = new StatusBarHelper(StatusText, StatusIcon);
+        Status = new StatusbarHelper(StatusText, StatusIcon);
         
         ...
     } 

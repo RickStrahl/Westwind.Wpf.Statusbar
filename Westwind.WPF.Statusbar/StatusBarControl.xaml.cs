@@ -34,7 +34,7 @@ namespace Westwind.Wpf.Statusbar
         /// StatusbarHelper instance that provides core
         /// status bar display functionality
         /// </summary>
-        public StatusBarHelper Status { get;  }
+        public StatusbarHelper Status { get;  }
 
         
         /// <summary>
@@ -44,7 +44,7 @@ namespace Westwind.Wpf.Statusbar
         {
             InitializeComponent();
 
-            Status = new StatusBarHelper(StatusText, StatusIcon);
+            Status = new StatusbarHelper(StatusText, StatusIcon);
         }
 
         /// <summary>

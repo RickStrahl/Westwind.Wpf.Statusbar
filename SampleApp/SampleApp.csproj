@@ -8,6 +8,10 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FontAwesome6.Fonts" Version="2.5.1" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\Westwind.WPF.Statusbar\Westwind.Wpf.Statusbar.csproj" />
   </ItemGroup>
 

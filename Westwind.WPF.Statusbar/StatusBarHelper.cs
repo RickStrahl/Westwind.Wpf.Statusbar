@@ -24,7 +24,7 @@ namespace Westwind.Wpf.Statusbar
     /// WPF Dispatcher to ensure the UI is updated before the
     /// next operation is performed.
     /// </remarks>
-    public class StatusBarHelper
+    public class StatusbarHelper
     {
 
         DebounceDispatcher debounce = new DebounceDispatcher();
@@ -39,10 +39,6 @@ namespace Westwind.Wpf.Statusbar
         /// </summary>
         public string DefaultStatusText { get; set; } = "Ready";
 
-        /// <summary>
-        /// Default icon image source when status is reset to default
-        /// </summary>
-        public ImageSource DefaultStatusIcon { get; set; } = StatusIcons.Default.DefaultIcon;
 
         /// <summary>
         /// An Image  control that displays the icon that is displayed.
@@ -94,7 +90,7 @@ namespace Westwind.Wpf.Statusbar
         /// </summary>
         /// <param name="statusText"></param>
         /// <param name="statusIconImage"></param>
-        public StatusBarHelper(TextBlock statusText, Image statusIconImage)
+        public StatusbarHelper(TextBlock statusText, Image statusIconImage)
         {            
             StatusText = statusText;
             StatusImage = statusIconImage;
@@ -295,7 +291,7 @@ namespace Westwind.Wpf.Statusbar
 
             if (imageSource == null)
             {
-                imageSource = DefaultStatusIcon;
+                imageSource = StatusIcons.DefaultIcon;
             }
             SetStatusIcon(imageSource, spin);
 
@@ -339,7 +335,7 @@ namespace Westwind.Wpf.Statusbar
         public void SetStatusIcon()
         {
             StatusImage.RenderTransform = null;
-            StatusImage.Source = DefaultStatusIcon;
+            StatusImage.Source = StatusIcons.DefaultIcon;
         }
 
         /// <summary>
