@@ -249,11 +249,10 @@ private void BtnSuccess_OnClick(object sender, RoutedEventArgs e)
 ```
 
 ## Using Custom Icons
-The status bar uses default icons that are internally provided via a XAML resource. You can override these default resources by reassing the default `StatusIcons` assignments in a few ways.
+The status bar uses default icons that are internally provided via a XAML resource. Icons are changeable via `ImageSource` instances meaning that you can override icons with many type of images such as bitmaps, XAML resources, icons, and even from font libraries like FontAwesome.
 
-
-### Default Icon Configuration
-By default the `StatusbarHelper` and `StatusbarControl` are using default icons that are embedded as XAML resources in `icons.xaml`. The default resource is accessible via the following resource and resource keys:
+### Default Icon Configuration - how it works
+By default the `StatusbarHelper` and `StatusbarControl` are using default icons that are embedded as XAML resources in `icons.xaml` and that are assigned as `DrawingImage` instances to the `ImageSource` typed properties of `StatusIcons`. The default resource icons are accessible via the following resource path and resource keys:
 
 ```cs
 public StatusIcons()
@@ -279,9 +278,9 @@ These icons are exposed as the default in:
 StatusbarHelper.StatusIcons = StatusbarIcons.Default;
 ```
 
-All icons are ImageSource objects, so they can be replaced with a new image source, which can come from other XAML resources, bitmap images or even from other tools like the `FontAwesome6` library.
+All icons are `ImageSource` objects, so they can be replaced with any new image source, which can come from other XAML resources, bitmap images or even from other tools like the `FontAwesome6` library - anything that can produce an `ImageSource`.
 
-### Overriding the Default Icons
+### Overriding Default Icons
 There are three ways to override the default icons:
 
 * Globally - Overide the `StatusIcon.Default`  Icon set
@@ -401,8 +400,21 @@ StatusHelper.StatusIcons = icons;
 #### Per call Icon Overrides
 Each of the control and helper `ShowStatusXXX()` methods have a parameter override that let you specify an `imageSource` parameter that effectively lets you use any icon you want for just a single call.
 
-
-
+```csharp
+private async void BtnRaw_OnClick(object sender, RoutedEventArgs e)
+{
+    var image = new ImageAwesome()
+    {
+        PrimaryColor = Brushes.SteelBlue,
+        Height = 15,
+        Icon = EFontAwesomeIcon.Solid_Spinner
+    };
+    
+    // Use the custom ImageAwesome source 
+    Statusbar.Status.ShowStatusProgress("Custom icon spinner (from FontAwesome)",
+                                       imageSource: image.Source, spin: true);
+}
+```
 
 
 ## License
