@@ -1,0 +1,63 @@
+﻿<Window x:Class="SampleApp.HelperWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:statusbar="clr-namespace:Westwind.Wpf.Statusbar;assembly=Westwind.Wpf.Statusbar"
+        Title="Status Helper Example" Height="400" Width="480">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height ="Auto"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+            <Button  Name="btnToggleIcons" ToolTip="Toggle Icons between stock and custom Images"
+                     Click="BtnToggleIcons_OnChecked"  Margin="5"></Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Width="200" Margin="20 8 20 20">
+            <Button Name="btnSuccess" Click="BtnSuccess_OnClick" Margin="0 8">Success</Button>
+            <Button Name="btnError" Click="BtnError_OnClick" Margin="0 8">Error</Button>
+            <Button Name="btnWarning" Click="BtnWarning_OnClick" Margin="0 8">Warning</Button>
+            <Button Name="btnProgress" Click="BtnProgress_OnClick" Margin="0 8">Progress</Button>
+            <Button Name="btnRaw" Click="BtnRaw_OnClick" Margin="0 10">Direct ShowStatus</Button>
+        </StackPanel>
+
+
+        <StatusBar  
+            Grid.Row="2" Height="30"  
+            VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
+            <StatusBar.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto"  />
+                        </Grid.ColumnDefinitions>
+                    </Grid>
+                </ItemsPanelTemplate>
+            </StatusBar.ItemsPanel>
+            <StatusBarItem Grid.Column="0" Margin="2,1,0,0">
+                <Image x:Name="StatusIcon" Source="{StaticResource circle_greenDrawingImage}"  Height="15" Width="15" Margin="0"  />
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="1">
+                <TextBlock Name="StatusText" x:FieldModifier="public" HorizontalAlignment="Left">Ready</TextBlock>
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="2">
+                <ContentControl Name="StatusCenter" 
+                                Margin="10 0"
+                                x:FieldModifier="public" HorizontalAlignment="Left" />
+            </StatusBarItem>
+            <StatusBarItem Grid.Column="3">
+                <ContentControl x:Name="StatusRight" x:FieldModifier="public" HorizontalAlignment="Right" Margin="0 0 5 0" />
+            </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

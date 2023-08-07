@@ -72,7 +72,7 @@ Status.ShowStatusProgress("This may take a minute...");
 This library provides:
 
 * **Simple Statusbar Control**  
-A basic status bar control that has an icon plus 3 base status bar areas that can be individually accessed.
+A basic status bar control that has an icon plus 3 status bar panels that can be individually accessed. The control only manages the the icon and main status text. 
 
 * **A Statusbar Helper**  
 This helper allows you to attach the key features of the Statusbar control to a XAML layout of your own by explicitly passing in the icon image control and primary text control.
@@ -152,7 +152,7 @@ Statusbar.Status.ShowStatusWarning("Careful... this might go sideways.", 2000);
 Statusbar.Status.ShowStatusProgress("This may take a minute...");
 ```
 
-Note that you can either use the control's methods directly (first two examples) or you can use the `Status` property which is the `StatusbarHelper` control that does the actual work and can also be used independently of this control.#\
+Note that you can either use the control's methods directly (first two examples) or you can use the `Status` property which is the `StatusbarHelper` instance that does the actual work and can also be used independently without this control. 
 
 #### Updating Non-Primary Panels
 The various status methods can be used to update the status bar's primary text panel and icon, but you can also set the optional center and right panels and assign text or content.
@@ -172,14 +172,27 @@ Statusbar.SetStatusRight(sp);
 Statusbar.StatusText.Text = "Pull it!";
 ```
 
-### Statusbar Helper
-The statusbar control is a quick way to drop a basic statusbar control on a page, but if you want more control over your status bar layout you can also create and manage your own Status bar XAML layout.
+#### Modifying the Statusbar Layout
+The status bar control is a UserControl with an embedded `Statusbar` control which is named - `Statusbar` that you can directly access and manipulate. This means you can optionally customize the layout by adding or removing panels and adding custom content beyond the base methods.
 
-In order to use the `StatusbarHelper` class you need to make available the primary text control and an image control.
+However, my recommendation is that if you are going to make heavy customizations to the status bar, skip the control and use the `StatusbarHelper` on your own custom layout in your host Window or control instead. As long as you have an icon `Image` and main panel `TextBlock` you can use the `StatusbarHelper` to get all feature benefits plus full control over your StatusBar layout.
+
+### Statusbar Helper
+The statusbar control is a quick way to drop a basic statusbar control on a page, but if you want more control over your status bar layout you can also create and **manage your own Status bar XAML layout**.
+
+In order to use the `StatusbarHelper` class you need to **provide the primary text control and an image control**.
 
 For example you can embed a status bar control like this into your own Xaml:
 
 ```xml
+<!-- if you use default icon resources you have to add the resources -->
+<Window x:Class="SampleApp.MainWindow" ...
+        xmlns:statusbar="clr-namespace:Westwind.Wpf.Statusbar;assembly=Westwind.Wpf.Statusbar"
+>
+<Window.Resources>
+    <ResourceDictionary Source="Assets/icons.xaml" />
+</Window.Resources>
+   ...
 <StatusBar  
     Grid.Row="3" Height="30"  
     VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
@@ -195,12 +208,18 @@ For example you can embed a status bar control like this into your own Xaml:
             </Grid>
         </ItemsPanelTemplate>
     </StatusBar.ItemsPanel>
+ 
+    <!-- initial image resource from built in resources - has to be named and passed into helper -->
     <StatusBarItem Grid.Column="0" Margin="2,1,0,0">
         <Image x:Name="StatusIcon" Source="{StaticResource circle_greenDrawingImage}"  Height="15" Width="15" Margin="0"  />
     </StatusBarItem>
+    
+    <!-- Main panel text block - has to be named and passed into the helper -->
     <StatusBarItem Grid.Column="1">
         <TextBlock Name="StatusText" x:FieldModifier="public" HorizontalAlignment="Left">Ready</TextBlock>
     </StatusBarItem>
+    
+    <!-- other custom layout that you can do whatever you want with -->
     <StatusBarItem Grid.Column="2">
         <ContentControl Name="StatusCenter" 
                    Margin="10 0"

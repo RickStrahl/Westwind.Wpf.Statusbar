@@ -16,14 +16,18 @@ namespace SampleApp
     /// <summary>
     /// Interaction logic for MainWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class HelperWindow : Window
     {
 
         public string ActiveIconSet { get; set; } = "Default Xaml Icons";
 
-        public MainWindow()
+        public StatusbarHelper Status { get; set; }
+
+        public HelperWindow()
         {
             InitializeComponent();
+
+            Status = new StatusbarHelper(StatusText, StatusIcon);
 
             btnToggleIcons.Content = ActiveIconSet;
         }
@@ -31,38 +35,38 @@ namespace SampleApp
         private void BtnSuccess_OnClick(object sender, RoutedEventArgs e)
         {
             // use the controls methods
-            Statusbar.ShowStatusSuccess("Yay. The operation was successful! ", 3000);
+            Status.ShowStatusSuccess("Yay. The operation was successful! ", 3000);
 
         }
 
         private void BtnError_OnClick(object sender, RoutedEventArgs e)
         {
             // use the controls methods
-            Statusbar.ShowStatusError("Ooops. Something went wrong!", 2000);
+            Status.ShowStatusError("Ooops. Something went wrong!", 2000);
         }
 
         private void BtnWarning_OnClick(object sender, RoutedEventArgs e)
         {
             // You can also use the Statusbar.Status object
             // which is more low level
-            Statusbar.Status.ShowStatusWarning("Careful... this might go sideways.", 2000);
+            Status.ShowStatusWarning("Careful... this might go sideways.", 2000);
         }
 
         private async void BtnProgress_OnClick(object sender, RoutedEventArgs e)
         {
-            Statusbar.Status.ShowStatusProgress("This may take a minute...");
+            Status.ShowStatusProgress("This may take a minute...");
 
             await Task.Delay(2000);
 
-            Statusbar.Status.ShowStatusProgress("Still working...");
+            Status.ShowStatusProgress("Still working...");
 
             await Task.Delay(2000);
 
-            Statusbar.Status.ShowStatusProgress("Getting close...");
+            Status.ShowStatusProgress("Getting close...");
 
             await Task.Delay(2000);
 
-            Statusbar.Status.ShowStatusSuccess("Yay. All done with success! ");
+            Status.ShowStatusSuccess("Yay. All done with success! ");
         }
 
         private async void BtnRaw_OnClick(object sender, RoutedEventArgs e)
@@ -74,25 +78,14 @@ namespace SampleApp
                 Height = 15,
                 Icon = EFontAwesomeIcon.Solid_Spinner
             };
-            Statusbar.Status.ShowStatusProgress("Custom icon spinner (from FontAwesome)",imageSource: image.Source, spin: true);
+            Status.ShowStatusProgress("Custom icon spinner (from FontAwesome)",imageSource: image.Source, spin: true);
 
             await Task.Delay(3000);
 
-            Statusbar.Status.ShowStatus("Using a different stock icon customized output. ", 3000, StatusIcons.Default.SuccessIcon, spin: true);
+            Status.ShowStatus("Using a different stock icon customized output. ", 3000, StatusIcons.Default.SuccessIcon, spin: true);
         }
 
-        private void BtnUpdatePanels_OnClick(object sender, RoutedEventArgs e)
-        {
-            Statusbar.SetStatusCenter("Center Panel Text");
-
-            var sp = new StackPanel() { Orientation = Orientation.Horizontal };
-            sp.Children.Add(new TextBlock() { Text = "Right Panel Text" });
-            sp.Children.Add(new System.Windows.Controls.Image
-                { Source = StatusIcons.Default.SuccessIcon, Height = 15, Margin = new Thickness(3, 0, 0, 0) });
-
-            Statusbar.SetStatusRight(sp);
-        }
-
+        
         private bool ToggleState = false;
 
         private void BtnToggleIcons_OnChecked(object sender, RoutedEventArgs e)
@@ -152,16 +145,16 @@ namespace SampleApp
                 };
                 icons.ProgressIcon = image.Source;
 
-                Statusbar.Status.StatusIcons = icons;
+                Status.StatusIcons = icons;
             }
             else
             {
                 ActiveIconSet = "Default Xaml Icons";
-                Statusbar.Status.StatusIcons = StatusIcons.Default;
+                Status.StatusIcons = StatusIcons.Default;
             }
 
             btnToggleIcons.Content = ActiveIconSet;
-            Statusbar.Status.SetStatusIcon();
+            Status.SetStatusIcon();
 
             // Alternately you can also override the StatusIcon.Default icons 
             // and have them overridden anywhere the default icons are used
@@ -172,10 +165,5 @@ namespace SampleApp
         }
 
 
-        private void BtnHelperExample_OnClick(object sender, RoutedEventArgs e)
-        {
-            var window = new HelperWindow();
-            window.Show();
-        }
     }
 }
