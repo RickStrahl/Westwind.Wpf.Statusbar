@@ -79,6 +79,30 @@ Status.ShowStatusProgress("This may take a minute...");
 ```
 
 
+If you need to access the default icons in your custom statusbar control you'll need to add the resources explicitly to your application in the host Window/Control or in `App.xaml`:
+
+```xml
+<!-- in app.xaml -->
+<Application.Resources>
+    <ResourceDictionary>
+        <ResourceDictionary.MergedDictionaries>
+            ...
+            <ResourceDictionary Source="pack://application:,,,/Westwind.Wpf.Statusbar;component/Assets/icons.xaml" />
+        </ResourceDictionary.MergedDictionaries>
+    </ResourceDictionary>
+</Application.Resources>
+```
+
+You can then for example use the default icon (`circle_greenDrawingImage`) in your custom status bar:
+
+```xml
+<StatusBarItem Grid.Column="0" Margin="2,1,0,0">
+   <Image x:Name="StatusIcon" 
+          Source="{StaticResource circle_greenDrawingImage}"  
+          Height="15"  Margin="0"  />
+</StatusBarItem>
+```
+
 ## Features
 
 This library provides:
@@ -201,10 +225,8 @@ For example you can embed a status bar control like this into your own Xaml:
 <Window x:Class="SampleApp.MainWindow" ...
         xmlns:statusbar="clr-namespace:Westwind.Wpf.Statusbar;assembly=Westwind.Wpf.Statusbar"
 >
-<Window.Resources>
-    <ResourceDictionary Source="Assets/icons.xaml" />
-</Window.Resources>
-   ...
+...
+<!-- use your own StatusBar control -->   
 <StatusBar  
     Grid.Row="3" Height="30"  
     VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
@@ -221,12 +243,12 @@ For example you can embed a status bar control like this into your own Xaml:
         </ItemsPanelTemplate>
     </StatusBar.ItemsPanel>
  
-    <!-- initial image resource from built in resources - has to be named and passed into helper -->
+    <!-- REQUIRED: initial image resource from built in resources - has to be named and passed into helper -->
     <StatusBarItem Grid.Column="0" Margin="2,1,0,0">
         <Image x:Name="StatusIcon" Source="{StaticResource circle_greenDrawingImage}"  Height="15" Width="15" Margin="0"  />
     </StatusBarItem>
     
-    <!-- Main panel text block - has to be named and passed into the helper -->
+    <!-- REQUIRED: Main panel text block - has to be named and passed into the helper -->
     <StatusBarItem Grid.Column="1">
         <TextBlock Name="StatusText" x:FieldModifier="public" HorizontalAlignment="Left">Ready</TextBlock>
     </StatusBarItem>

@@ -114,15 +114,15 @@ namespace Westwind.Wpf.Statusbar
             {
                 OriginalIconHeight = StatusImage.Height;
                 if (double.IsNaN(OriginalIconHeight) || OriginalIconHeight < 1)
-                    StatusImage.Height = 15F;
+                    StatusImage.Height = 14F;
             }
-            if (!double.IsNaN(OriginalIconHeight) && OriginalIconHeight != 0)
-                StatusImage.Height = OriginalIconHeight;
+            if (!double.IsNaN(OriginalIconWidth) && OriginalIconWidth != 0)
+                StatusImage.Width = OriginalIconWidth;
             else
             {
                 OriginalIconWidth = StatusImage.Width;
                 if (double.IsNaN(OriginalIconWidth) || OriginalIconWidth < 1)
-                    StatusImage.Width = 15F;
+                    StatusImage.Width = StatusImage.Height;
             }
         }
 

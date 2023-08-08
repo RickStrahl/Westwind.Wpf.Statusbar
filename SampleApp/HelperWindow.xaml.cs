@@ -1,15 +1,9 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
-using System.Runtime.CompilerServices;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Automation;
-using System.Windows.Controls;
 using System.Windows.Media;
 using FontAwesome6;
 using FontAwesome6.Fonts;
 using Westwind.Wpf.Statusbar;
-using static System.Net.Mime.MediaTypeNames;
 
 namespace SampleApp
 {
