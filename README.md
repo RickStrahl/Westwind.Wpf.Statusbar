@@ -9,11 +9,11 @@ This is a small WPF library that provides Statusbar functionality in a couple of
 * A Statusbar Helper you can apply against your own status bars
 
 
-![](https://github.com/RickStrahl/Westwind.Wpf.Statusbar/raw/master/ScreenCapture.gif)
+![](ScreenCapture.gif)
 
 Here's an in-app example of the `StatusHelper` in a live application in [Markdown Monster](https://markdownmonster.west-wind.com).
 
-![](https://github.com/RickStrahl/Westwind.Wpf.Statusbar/raw/master/StatusInMM.gif)
+![](StatusInMM.gif)
 
 ## Features
 
