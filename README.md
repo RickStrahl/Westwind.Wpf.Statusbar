@@ -303,7 +303,8 @@ Captures the original icon size of the icon so that it can be reset when 'flashi
 Methods are pretty self-explanatory:
 
 ```csharp
-public void ShowStatusSuccess(string message, int timeout = -1, ImageSource imageSource = null, bool flashIcon = true)
+public void ShowStatusSuccess(string message, int timeout = -1, 
+    ImageSource imageSource = null, bool flashIcon = true)
 ```
 
 ```csharp
@@ -319,7 +320,8 @@ public void ShowStatusWarning(string message, int timeout = -1,
 ```
 
 ```csharp
-public void ShowStatusProgress(string message, int timeout = -1, ImageSource imageSource = null, bool spin = true, bool flashIcon = false)
+public void ShowStatusProgress(string message, int timeout = -1, 
+    ImageSource imageSource = null, bool spin = true, bool flashIcon = false)
 ```
 
 ```csharp
