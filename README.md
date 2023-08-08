@@ -11,128 +11,46 @@ This is a small WPF library that provides Statusbar functionality in a couple of
 * A Statusbar Helper you can apply against your own status bars
 
 
-![](ScreenCapture.gif)
+![](https://github.com/RickStrahl/Westwind.Wpf.Statusbar/raw/master/ScreenCapture.gif)
 
 Here's an in-app example of the `StatusHelper` in a live application in [Markdown Monster](https://markdownmonster.west-wind.com).
 
-
-![](StatusInMM.gif)
-
+![](https://github.com/RickStrahl/Westwind.Wpf.Statusbar/raw/master/StatusInMM.gif)
 
 ## Features
 
-* Easy to use, single method status updates from anywhere in your app
-* Status relevant icons change based on display mode
-* Animated icon 'flashing' when initially rendered (optional)
-* Spinning icon support typically for progress operations
-* Status text and icon can expire and revert to default after timeout
-* Immediate UI update handling even in synchronous code  
-* Customize icons globally, per instance or per method using `ImageSource`
+* **[Simple Status Bar Control](#statusbar-control)**  
+A basic status bar control that has an icon plus 3 status panels that can be individually accessed and managed. Control wraps a Statusbar instance that you can optionally customize with additional panels and custom panel content. Various `ShowStatusXXX()` methods update the main panel's icon and text.
 
-## Installation and base Usage
+* **[A Status Bar Helper](#statusbar-helper)**  
+If you prefer to use your own layout for the Statusbar, you can instead use the `StatusbarHelper` to add the status bar update functionality to your own instances. Requires that your Statusbar has an icon `Image` control and a main `TextBlock` area to update which is handled via the helper's `ShowStausXXX()` methods.
+
+Both of these tools provide the following features:
+
+* Easy to use, single method status updates from anywhere in your app
+* Modes:  Success, Error, Warning, Progress
+* Status relevant icons change based on display mode
+* Icons are animated for attention
+* Spinning icon support typically for progress operations
+* Status messages and icons can be timed out, to revert  
+  back to a default status message and icon.
+* Status updates immediately update UI even in synchronous code
+* Stock icons provided
+* Icon customization available for overriding either 
+  globally, per instance or per method using `ImageSource`
+
+
+## Installation
+
 You can install this library from NuGet:
 
 ```ps
 > dotnet add package Westwind.Wpf.Statusbar
 ```
 
-To use the control add the following namespace to WPF Windows or controls:
+or you can include the source code from this repository into your project.
 
-```xml
-<Window x:Class="SampleApp.MainWindow" ...
-        xmlns:statusbar="clr-namespace:Westwind.Wpf.Statusbar;assembly=Westwind.Wpf.Statusbar"
->
-```
-
-And to use the control in a Window or Control:
-
-```xml
-<statusbar:StatusbarControl Grid.Row="1" Name="Statusbar" />
-````
-
-Alternately you can use the `StatusbarHelper` with your own existing Statusbar, provided it has an icon `Image` and a main `TextBlock`. You can attach the `StatusbarHelper` to the parent control or window and pass in the `Textblock` control and `Image` icon control which is then automated.
-
-```csharp
- public partial class MyWindow : Window
- {
-    public StatusbarHelper Status { get;  }
-
-    public MyWindow()
-    {
-        InitializeComponent();
-            
-        Status = new StatusbarHelper(StatusText, StatusIcon);
-        
-        ...
-    } 
- }        
-```
-
-To update status messages:
-
-```csharp
-// Using the control: shows status and resets to default  after 3 secs
-Statusbar.ShowStatusSuccess("Yay. The operation was successful! ", 3000);
-
-// Using the control: shows status and resets to default  after 2 secs
-Statusbar.ShowStatusError("Ooops. Something went wrong!",2000);
-
-// Using StatusHelper: shows status and resets to default  after 2 secs
-Status.ShowStatusWarning("Careful... this might go sideways.", 2000);
-
-// Using StatusHelper: shows spinning icon indefinitely
-Status.ShowStatusProgress("This may take a minute...");
-```
-
-
-If you need to access the default icons in your custom statusbar control you'll need to add the resources explicitly to your application in the host Window/Control or in `App.xaml`:
-
-```xml
-<!-- in app.xaml -->
-<Application.Resources>
-    <ResourceDictionary>
-        <ResourceDictionary.MergedDictionaries>
-            ...
-            <ResourceDictionary Source="pack://application:,,,/Westwind.Wpf.Statusbar;component/Assets/icons.xaml" />
-        </ResourceDictionary.MergedDictionaries>
-    </ResourceDictionary>
-</Application.Resources>
-```
-
-You can then for example use the default icon (`circle_greenDrawingImage`) in your custom status bar:
-
-```xml
-<StatusBarItem Grid.Column="0" Margin="2,1,0,0">
-   <Image x:Name="StatusIcon" 
-          Source="{StaticResource circle_greenDrawingImage}"  
-          Height="15"  Margin="0"  />
-</StatusBarItem>
-```
-
-## Features
-
-This library provides:
-
-* **Simple Statusbar Control**  
-A basic status bar control that has an icon plus 3 status bar panels that can be individually accessed. The control only manages the the icon and main status text. 
-
-* **A Statusbar Helper**  
-This helper allows you to attach the key features of the Statusbar control to a XAML layout of your own by explicitly passing in the icon image control and primary text control.
-
-Both of these tools provide the following features:
-
-* Simple ShowStatus methods to display common status modes
-* Modes:  Success, Error, Warning, Progress
-* Icons to display common states
-* Icon animation for state change
-* Animated progress icon
-* Icon and text reversion to a default message and icon
-* Stock icons provided, but you can override with any ImageSource
-
-
-## Usage
-
-### Statusbar Control
+## Statusbar Control
 The status bar control can just be dropped onto a form by adding the following namespace:
 
 ```xml
@@ -144,7 +62,7 @@ The status bar control can just be dropped onto a form by adding the following n
 and the actual control:
 
 ```xml
-<statusbar:StatusbarControl Grid.Row="1" Name="Statusbar" />
+<statusbar:StatusbarControl Grid.Row="1" x:Name="Statusbar" />
 ````
 
 In a window it looks like this:
@@ -175,7 +93,7 @@ In a window it looks like this:
 </Window>
 ```
 
-#### Showing Status Messages
+### Showing Status Messages
 Once the control is on the page you can simply call the properties to manipulate the status behavior.
 
 The following are examples that demonstrate the basic operations *(note you wouldn't run them one after the other like this but each before/after an operation has completed)*
@@ -187,6 +105,8 @@ Statusbar.ShowStatusSuccess("Yay. The operation was successful! ", 3000);
 // shows status and resets to default  after 2 secs
 Statusbar.ShowStatusError("Ooops. Something went wrong!",2000);
 
+// *** Or access the embedded StatusbarHelper directly
+
 // shows status and resets to default  after 2 secs
 Statusbar.Status.ShowStatusWarning("Careful... this might go sideways.", 2000);
 
@@ -196,7 +116,7 @@ Statusbar.Status.ShowStatusProgress("This may take a minute...");
 
 Note that you can either use the control's methods directly (first two examples) or you can use the `Status` property which is the `StatusbarHelper` instance that does the actual work and can also be used independently without this control. 
 
-#### Updating Non-Primary Panels
+### Updating Non-Primary Panels
 The various status methods can be used to update the status bar's primary text panel and icon, but you can also set the optional center and right panels and assign text or content.
 
 ```csharp
@@ -214,27 +134,41 @@ Statusbar.SetStatusRight(sp);
 Statusbar.StatusText.Text = "Pull it!";
 ```
 
-#### Modifying the Statusbar Layout
-The status bar control is a UserControl with an embedded `Statusbar` control which is named - `Statusbar` that you can directly access and manipulate. This means you can optionally customize the layout by adding or removing panels and adding custom content beyond the base methods.
+### Modifying the Statusbar Layout
+The status bar control is a UserControl with an embedded `StatusBar` control which is named - `Statusbar` that you can directly access and manipulate. This means you can optionally customize the layout by adding or removing panels and adding custom content beyond the base methods.
 
-However, my recommendation is that if you are going to make heavy customizations to the status bar, skip the control and use the `StatusbarHelper` on your own custom layout in your host Window or control instead. As long as you have an icon `Image` and main panel `TextBlock` you can use the `StatusbarHelper` to get all feature benefits plus full control over your StatusBar layout.
+> If you plan on a custom Statusbar layout, my recommendation is to skip the control and use the `StatusbarHelper` on your own custom layout in your host Window or control instead. As long as you have an icon `Image` and main panel `TextBlock` you can use the `StatusbarHelper` to get all feature benefits plus full control over your StatusBar layout.
 
-### Statusbar Helper
+## Statusbar Helper
 The statusbar control is a quick way to drop a basic statusbar control on a page, but if you want more control over your status bar layout you can also create and **manage your own Status bar XAML layout**.
 
-In order to use the `StatusbarHelper` class you need to **provide the primary text control and an image control**.
+### Configuration
+In order to use the `StatusbarHelper` class you need to **provide the primary `TextBlock` control and an `Image` control**.
 
-For example you can embed a status bar control like this into your own Xaml:
+You'll need a few things:
+
+* Make sure you have an icon `Image` control and a `TextBlock` main Status text control
+* If you add a default icon from the default icon collection make
+  sure to add the `icons.xaml` resources to the page or app resources.
+* Create a property to hold the `StatusbarHelper` instance
+* Initialize and assign property after `InitializeComponents()`
+
+### Custom StatusBar XAML Configuration
+For example you can embed a status bar control like this into your own Xaml with a default icon taken from the `icons.xaml` resources embedded in the library.
 
 ```xml
 <!-- if you use default icon resources you have to add the resources -->
 <Window x:Class="SampleApp.MainWindow" ...
         xmlns:statusbar="clr-namespace:Westwind.Wpf.Statusbar;assembly=Westwind.Wpf.Statusbar"
 >
+<Window.Resources>
+ <!-- local - or put this in App.xaml -->
+ <ResourceDictionary Source="pack://application:,,,/Westwind.Wpf.Statusbar;component/Assets/icons.xaml" />
+</Window.Resources>
 ...
-<!-- use your own StatusBar control -->   
+<!-- use your own StatusBar control. Use Fixed Height! -->   
 <StatusBar  
-    Grid.Row="3" Height="30"  
+    Height="30"  
     VerticalAlignment="Bottom" HorizontalAlignment="Stretch">
     <StatusBar.ItemsPanel>
         <ItemsPanelTemplate>
@@ -249,14 +183,17 @@ For example you can embed a status bar control like this into your own Xaml:
         </ItemsPanelTemplate>
     </StatusBar.ItemsPanel>
  
-    <!-- REQUIRED: initial image resource from built in resources - has to be named and passed into helper -->
+    <!-- REQUIRED: initial image resource from built in resources
+         has to be named and passed into helper.
+         Set a fixed height
+    -->
     <StatusBarItem Grid.Column="0" Margin="2,1,0,0">
-        <Image x:Name="StatusIcon" Source="{StaticResource circle_greenDrawingImage}"  Height="15" Width="15" Margin="0"  />
+        <Image x:Name="StatusIcon" Source="{StaticResource circle_greenDrawingImage}" Height="14" />
     </StatusBarItem>
     
     <!-- REQUIRED: Main panel text block - has to be named and passed into the helper -->
     <StatusBarItem Grid.Column="1">
-        <TextBlock Name="StatusText" x:FieldModifier="public" HorizontalAlignment="Left">Ready</TextBlock>
+        <TextBlock Name="StatusText">Ready</TextBlock>
     </StatusBarItem>
     
     <!-- other custom layout that you can do whatever you want with -->
@@ -272,14 +209,13 @@ For example you can embed a status bar control like this into your own Xaml:
 ```
 
 > #### Status Bar Recommendations
-> For best effect, there are a couple of recommendations for any custom status bars you use with `StatusHelper`:
+> For best effect, there are a couple of recommendations for any custom status bars you use with `StatusbarHelper`:
 >
->
-> * Make the Statusbar a **fixed height** to avoid resizing on Flashing
-> * Make the icon a fixed height and width (square ideally)
+> * Make the StatusBar a **fixed height** to avoid resizing on Flashing
+> * Make the icon a fixed height (13-15 is good)
 
+#### Add the StatusbarHelper Instance Property
 In the constructor of Window or Control that hosts this control you can then assign the `StatusbarHelper` as a property like this:
-
 
 ```csharp
  public partial class MyWindow : Window
@@ -289,23 +225,129 @@ In the constructor of Window or Control that hosts this control you can then ass
     public MyWindow()
     {
         InitializeComponent();
-            
+          
+        // Create the helper with text and icon passed in    
         Status = new StatusbarHelper(StatusText, StatusIcon);
         
         ...
     } 
  }        
 ```
+#### Use the Status instance
 
-To update status information you can then run commands like this:
+To use, you can now call the helper's methods to update the status bar:
 
 ```csharp
 private void BtnSuccess_OnClick(object sender, RoutedEventArgs e)
 {
-    // use the controls methods
-    this.Status.ShowStatusSuccess("Yay. The operation was successful! ", 3000);
+    // use the controls methods - uses Default Timeout
+    Status.ShowStatusSuccess("Yay. The operation was successful! ");
+    
+    // shows status and resets to default  after 2 secs
+    Status.ShowStatusWarning("Careful... this might go sideways.", 2000);
+
+    // shows spinning icon indefinitely
+    Status.ShowStatusProgress("This may take a minute...");
 }
 ```
+
+## Class Interface
+The following provides more detail on the interfaces for the `StatusbarControl` and `StatusHelper` classes.
+
+### StatusbarControl
+The StatusbarControl is a UserControl that contains a 3 panel `StatusBar` control. The 
+
+**Properties**
+
+* **StatusbarInstance**
+the 4 panel WPF StatusBar instance you can optionally manipulate
+
+* **Status**
+The `StatusbarHelper` instance that does all the work for updating the status bar.
+
+**Methods**
+
+The control has several methods that forward the `StatusbarHelper` methods to the control (more info below).
+
+* ShowStatusSuccess()
+* ShowStatusError()
+* ShowStatusWarning()
+* ShowStatusProgress()
+
+In addition it has two methods to set the 2 non-primary status bar panels, with content or text:
+
+* SetStatusCenter()
+* SetStatusRight()
+
+### StatusBarHelper
+The helper provides easy to use methods to update the icon and main status text of the statusbar that it's bound to. You pass in a `TextBlock` and `Image` that map to these panel items and that are updated as needed.
+
+**Properties**
+
+* **StatusText and StatusImage**   
+The two controls captured in the constructor that are updated by this helper.
+
+* **StatusIcons**  
+An instance of `ItemSource` images that describe the icons that are used for display messages. Defaults to `StatusIcons.Default` but can be overridden with your own instance that replaces any of the default `ItemSource` Images. If you replace `StatusIcons` we recommend you create a **new instance** to avoid overwriting the default icons unless you want to globally replace icons.
+
+* **DefaultStatusText**  
+The default status text that the control reverts back to when the display timeout is expired.  
+<small>*Related: The default icon is reset to `StatusIcons.DefaultIcon`.*</small>
+
+* **StatusMessageTimeoutMs**  
+Determines the default message timeout in milliseconds for operations that revert to the default message and icon after the timeout (Success, Error, Warning). You can always override this setting in the individual methods.
+
+* **OriginalIconHeight and OriginalIconWidth**  
+Captures the original icon size of the icon so that it can be reset when 'flashing' the icon. If the value is non-zero the value provided is used. If default value of 0, we attempt to capture the size from the `Image` control, and if that fails - likely because of auto-sizing - we default to 14. Preferrably you set the icon's height in the statusbar or provide at least an explicit height. If width can't be determined we use the same value as the height.
+
+**Methods** 
+Methods are pretty self-explanatory:
+
+```csharp
+public void ShowStatusSuccess(string message, int timeout = -1, ImageSource imageSource = null, bool flashIcon = true)
+```
+
+```csharp
+public void ShowStatusWarning(string message, int timeout = -1,
+    ImageSource imageSource = null,
+    bool flashIcon = true)
+```
+
+```csharp
+public void ShowStatusWarning(string message, int timeout = -1,
+    ImageSource imageSource = null,
+    bool flashIcon = true)
+```
+
+```csharp
+public void ShowStatusProgress(string message, int timeout = -1, ImageSource imageSource = null, bool spin = true, bool flashIcon = false)
+```
+
+```csharp
+public void ShowStatus(string message = null, 
+    int timeoutMs = 0,
+    ImageSource imageSource = null,
+    bool spin = false, 
+    bool flashIcon = false, 
+    bool noDispatcher = false)
+```
+
+```csharp
+public void SetStatusIcon(ImageSource imageSource, bool spin = false)
+public void SetStatusIcon() // resets to default
+```
+
+```csharp
+public void FlashIcon(Image icon = null)
+```
+
+#### Timeout Parameter Notes
+The timeout parameter can be passed as a Milliseconds value, -1 or 0.
+
+* **Milliseconds** - Explicit timeout in Milliseconds
+* **-1** - Use the default `StatusMessageTimeoutMs`
+* **0** - No timeout - display the message and leave it up
+
 
 ## Using Custom Icons
 The status bar uses default icons that are internally provided via a XAML resource. Icons are changeable via `ImageSource` instances meaning that you can override icons with many type of images such as bitmaps, XAML resources, icons, and even from font libraries like FontAwesome.

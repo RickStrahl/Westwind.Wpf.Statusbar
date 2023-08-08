@@ -35,12 +35,6 @@ namespace Westwind.Wpf.Statusbar
         public TextBlock StatusText { get; set; }
 
         /// <summary>
-        /// The default status text to revert to when status is reset to default
-        /// </summary>
-        public string DefaultStatusText { get; set; } = "Ready";
-
-
-        /// <summary>
         /// An Image  control that displays the icon that is displayed.
         /// Different display modes will change the icon.
         ///
@@ -49,6 +43,18 @@ namespace Westwind.Wpf.Statusbar
         /// </summary>
         public Image StatusImage { get; set; }
 
+
+        /// <summary>
+        /// Default Status Icon Images
+        /// </summary>
+        public StatusIcons StatusIcons { get; set; }
+
+        /// <summary>
+        /// The default status text to revert to when status is reset to default
+        /// </summary>
+        public string DefaultStatusText { get; set; } = "Ready";
+
+        
         /// <summary>
         /// Default timeout for how long a status message displays
         /// </summary>
@@ -68,10 +74,6 @@ namespace Westwind.Wpf.Statusbar
         public double OriginalIconWidth = 0F;
 
 
-        /// <summary>
-        /// Default Status Icon Images
-        /// </summary>
-        public StatusIcons StatusIcons { get; set; }
 
         /// <summary>
         /// Internal flag that determines if the last operation fired
