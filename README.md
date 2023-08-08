@@ -135,21 +135,20 @@ Statusbar.StatusText.Text = "Pull it!";
 ```
 
 ### Modifying the Statusbar Layout
-The status bar control is a UserControl with an embedded `StatusBar` control which is named - `Statusbar` that you can directly access and manipulate. This means you can optionally customize the layout by adding or removing panels and adding custom content beyond the base methods.
+The status bar control is a UserControl with an embedded `StatusBar` control which is named - `StatusbarInstance` that you can directly access and manipulate. This means you can optionally customize the layout by adding or removing panels and adding custom content beyond the base layout.
 
-> If you plan on a custom Statusbar layout, my recommendation is to skip the control and use the `StatusbarHelper` on your own custom layout in your host Window or control instead. As long as you have an icon `Image` and main panel `TextBlock` you can use the `StatusbarHelper` to get all feature benefits plus full control over your StatusBar layout.
+> #### Need a custom StatusBar Layout? Use `StatusbarHelper`
+> If you plan on a custom Statusbar layout, my recommendation is to skip the control and use the `StatusbarHelper` on your own custom layout in your host Window or control instead. As long as you have an icon `Image` and main panel `TextBlock` you can use the `StatusbarHelper` to get all feature benefits plus full control over your StatusBar layout in your own XAML code.
 
 ## Statusbar Helper
-The statusbar control is a quick way to drop a basic statusbar control on a page, but if you want more control over your status bar layout you can also create and **manage your own Status bar XAML layout**.
+The `StatusbarControl` is a quick way to drop a basic status bar on a page, but if you want more control over your status bar layout you can also create and **manage your own Status bar XAML layout**. You can then attach the `StatusbarHelper` to take over the status message display.
 
 ### Configuration
-In order to use the `StatusbarHelper` class you need to **provide the primary `TextBlock` control and an `Image` control**.
+In order to use the `StatusbarHelper` class a few things are needed:
 
-You'll need a few things:
-
-* Make sure you have an icon `Image` control and a `TextBlock` main Status text control
+* A status bar with an icon `Image` control and a `TextBlock` main Status text control
 * If you add a default icon from the default icon collection make
-  sure to add the `icons.xaml` resources to the page or app resources.
+  sure to add the `icons.xaml` resources to the Window or App resources.
 * Create a property to hold the `StatusbarHelper` instance
 * Initialize and assign property after `InitializeComponents()`
 
@@ -350,10 +349,30 @@ The timeout parameter can be passed as a Milliseconds value, -1 or 0.
 
 
 ## Using Custom Icons
-The status bar uses default icons that are internally provided via a XAML resource. Icons are changeable via `ImageSource` instances meaning that you can override icons with many type of images such as bitmaps, XAML resources, icons, and even from font libraries like FontAwesome.
+The status bar uses default icons that are internally provided via a `icons.xaml` XAML resource. 
+
+Icons are changeable via `ImageSource` instances meaning that you can override icons with many type of images such as bitmaps, XAML resources, icons, and even from font libraries like FontAwesome.
 
 ### Default Icon Configuration - how it works
-By default the `StatusbarHelper` and `StatusbarControl` are using default icons that are embedded as XAML resources in `icons.xaml` and that are assigned as `DrawingImage` instances to the `ImageSource` typed properties of `StatusIcons`. The default resource icons are accessible via the following resource path and resource keys:
+By default the `StatusbarHelper` and `StatusbarControl` are using default icons that are embedded as XAML resources in `icons.xaml` and that are assigned as `DrawingImage` instances to the `ImageSource` typed properties of `StatusIcons`. 
+
+
+The default resource icons are accessible via the following resource path and resource keys:
+
+via XAML:
+
+```xml
+<Window.Resources>
+ <!-- local - or put this in App.xaml -->
+ <ResourceDictionary Source="pack://application:,,,/Westwind.Wpf.Statusbar;component/Assets/icons.xaml" />
+</Window.Resources>
+
+<StatusBarItem Grid.Column="0" Margin="2,1,0,0">
+        <Image x:Name="StatusIcon" Source="{StaticResource circle_greenDrawingImage}" Height="14" />
+</StatusBarItem>
+```
+
+or via code:
 
 ```cs
 public StatusIcons()
@@ -379,19 +398,19 @@ These icons are exposed as the default in:
 StatusbarHelper.StatusIcons = StatusbarIcons.Default;
 ```
 
-All icons are `ImageSource` objects, so they can be replaced with any new image source, which can come from other XAML resources, bitmap images or even from other tools like the `FontAwesome6` library - anything that can produce an `ImageSource`.
+All icons are `ImageSource` objects, so they can be replaced with any new image source, which can come from other XAML resources, bitmap images or even from other libraries like the `FontAwesome6` library - anything that can produce an `ImageSource`.
 
 ### Overriding Default Icons
 There are three ways to override the default icons:
 
 * Globally - Overide the `StatusIcon.Default`  Icon set
-* Per Control - Override the `StatusbarHelper.StatusIcons` Icon set
+* Per Control - Override the `StatusbarHelper.StatusIcons` instance
 * Per Call - Override the `imageSource` parameter on the various `ShowStatusXXX()` calls
 
 #### Globally override StatusIcon.Default
 The `StatusIcon.Default` static object contains the default icons that are used by default and are assigned by default to a new instance of the `StatusbarHelper` and by extension the `StatusbarControl` which uses the helper for rendering. 
 
-You can assign a new set of icons to the `StatusIcon.Default` class which contains `ImageSource` properties for each of the various icons. By overriding these ImageSource properties before any controls or helpers are created you are effectively globally overriding the value all icons that are rendered.
+You can assign a new set of icons to the `StatusIcon.Default` icon `ImageSource` properties. By overriding these ImageSource properties **before any controls or helpers are created** you are effectively globally overriding the value all icons that are rendered.
 
 For example, to override the `SuccessIcon` you could use the following code:
 
@@ -516,7 +535,6 @@ private async void BtnRaw_OnClick(object sender, RoutedEventArgs e)
                                        imageSource: image.Source, spin: true);
 }
 ```
-
 
 ## License
 This library is published under **MIT license** terms.
