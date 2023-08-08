@@ -13,6 +13,12 @@ This is a small WPF library that provides Statusbar functionality in a couple of
 
 ![](ScreenCapture.gif)
 
+Here's an in-app example of the `StatusHelper` in a live application in [Markdown Monster](https://markdownmonster.west-wind.com).
+
+
+![](StatusInMM.gif)
+
+
 ## Features
 
 * Easy to use, single method status updates from anywhere in your app
