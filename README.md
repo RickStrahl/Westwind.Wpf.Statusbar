@@ -351,13 +351,12 @@ The timeout parameter can be passed as a Milliseconds value, -1 or 0.
 
 
 ## Using Custom Icons
-The status bar uses default icons that are internally provided via a `icons.xaml` XAML resource. 
+The status bar uses default icons that are internally provided via a `icons.xaml` XAML resource, but can be replaced with your own custom icons either globally, per instance or with each method call.
 
-Icons are changeable via `ImageSource` instances meaning that you can override icons with many type of images such as bitmaps, XAML resources, icons, and even from font libraries like FontAwesome.
+All icons are `ImageSource` objects, so they can be replaced with any new image source, which can come from other XAML resources, bitmap images or even from other libraries like the `FontAwesome6` library - anything that can produce an `ImageSource`.
 
 ### Default Icon Configuration - how it works
 By default the `StatusbarHelper` and `StatusbarControl` are using default icons that are embedded as XAML resources in `icons.xaml` and that are assigned as `DrawingImage` instances to the `ImageSource` typed properties of `StatusIcons`. 
-
 
 The default resource icons are accessible via the following resource path and resource keys:
 
@@ -400,17 +399,15 @@ These icons are exposed as the default in:
 StatusbarHelper.StatusIcons = StatusbarIcons.Default;
 ```
 
-All icons are `ImageSource` objects, so they can be replaced with any new image source, which can come from other XAML resources, bitmap images or even from other libraries like the `FontAwesome6` library - anything that can produce an `ImageSource`.
-
 ### Overriding Default Icons
 There are three ways to override the default icons:
 
-* Globally - Overide the `StatusIcon.Default`  Icon set
+* Globally - Overide the `StatusIcon.Default` icon set
 * Per Control - Override the `StatusbarHelper.StatusIcons` instance
 * Per Call - Override the `imageSource` parameter on the various `ShowStatusXXX()` calls
 
 #### Globally override StatusIcon.Default
-The `StatusIcon.Default` static object contains the default icons that are used by default and are assigned by default to a new instance of the `StatusbarHelper` and by extension the `StatusbarControl` which uses the helper for rendering. 
+The `StatusIcon.Default` static object contains the default icons provided by this library in the `icons.xaml` resource. The default icons are the default icon set assigned to a new instance of the `StatusbarHelper` and by extension the `StatusbarControl` which uses the helper for rendering. 
 
 You can assign a new set of icons to the `StatusIcon.Default` icon `ImageSource` properties. By overriding these ImageSource properties **before any controls or helpers are created** you are effectively globally overriding the value all icons that are rendered.
 
@@ -498,7 +495,12 @@ private void BtnToggleIcons_OnChecked(object sender, RoutedEventArgs e)
     else
     {
         ActiveIconSet = "Default Xaml Icons";
+        
+        // using the Statusbar control
         Statusbar.Status.StatusIcons = StatusIcons.Default;
+        
+        // using the Statusbar Helper
+        // StatusHelper.StatusIcons = icons;
     }
 
     btnToggleIcons.Content = ActiveIconSet;
@@ -511,12 +513,6 @@ private void BtnToggleIcons_OnChecked(object sender, RoutedEventArgs e)
     // StatusbarIcons.DefaultIcon = image.Source;  // overrides anywhere the default is used
 
 }
-```
-
-If you're using a status bar helper directly you'd instead use:
-
-```cs
-StatusHelper.StatusIcons = icons;
 ```
 
 #### Per call Icon Overrides
