@@ -45,6 +45,8 @@ namespace Westwind.Wpf.Statusbar
             InitializeComponent();
 
             Status = new StatusbarHelper(StatusText, StatusIcon);
+
+            
         }
 
         /// <summary>

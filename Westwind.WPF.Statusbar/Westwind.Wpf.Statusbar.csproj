@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0-Windows;net472</TargetFrameworks>
-		<Version>0.2.1</Version>
+		<Version>0.2.2</Version>
 		<UseWpf>true</UseWpf>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 
@@ -23,6 +23,7 @@
 
 		<PackageIcon>icon.png</PackageIcon>
 		<PackageLicenseFile>LICENSE.MD</PackageLicenseFile>
+		<PackageReadmeFile>README.md</PackageReadmeFile>
 	</PropertyGroup>
 
 
@@ -40,5 +41,6 @@
 
 		<None Include="icon.png" Pack="true" PackagePath="" />
 		<None Include="LICENSE.MD" Pack="true" PackagePath="" />
+		<None Include="../README.md" Pack="true" PackagePath="" />
 	</ItemGroup>
 </Project>

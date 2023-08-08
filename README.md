@@ -1,5 +1,3 @@
-<img src="Westwind.Wpf.Statusbar/icon.png" height=64 align=right />
-
 # WPF Statusbar Helper and Control
  
  <a href="https://www.nuget.org/packages/Westwind.Wpf.Statusbar/">![](https://img.shields.io/nuget/v/Westwind.Wpf.Statusbar.svg)</a> ![](https://img.shields.io/nuget/dt/Westwind.Wpf.Statusbar.svg)
@@ -258,11 +256,11 @@ The StatusbarControl is a UserControl that contains a 3 panel `StatusBar` contro
 
 **Properties**
 
-* **StatusbarInstance**
+* **StatusbarInstance**  
 the 4 panel WPF StatusBar instance you can optionally manipulate
 
-* **Status**
-The `StatusbarHelper` instance that does all the work for updating the status bar.
+* **Status**  
+The `StatusbarHelper` instance that does all the work for updating the status bar (see below).
 
 **Methods**
 
