@@ -92,27 +92,32 @@ In a window it looks like this:
 ```
 
 ### Showing Status Messages
-Once the control is on the page you can simply call the properties to manipulate the status behavior.
+Once the control is on the page you can simply call the single line display methods to manipulate the status behavior.
 
-The following are examples that demonstrate the basic operations *(note you wouldn't run them one after the other like this but each before/after an operation has completed)*
+The following are examples that demonstrate individual status operations:
 
 ```csharp
-// shows status and resets to default  after 3 secs
-Statusbar.ShowStatusSuccess("Yay. The operation was successful! ", 3000);
+// shows status and resets to default after default timeout
+Statusbar.ShowStatusSuccess("Yay. The operation was successful!");
+```
 
+```csharp
 // shows status and resets to default  after 2 secs
 Statusbar.ShowStatusError("Ooops. Something went wrong!",2000);
+```
 
-// *** Or access the embedded StatusbarHelper directly
-
+```csharp
+// *** Access the embedded StatusbarHelper directly (Statusbar.Status)
 // shows status and resets to default  after 2 secs
 Statusbar.Status.ShowStatusWarning("Careful... this might go sideways.", 2000);
+```
 
+```csharp
 // shows spinning icon indefinitely
 Statusbar.Status.ShowStatusProgress("This may take a minute...");
 ```
 
-Note that you can either use the control's methods directly (first two examples) or you can use the `Status` property which is the `StatusbarHelper` instance that does the actual work and can also be used independently without this control. 
+Note that you can either use the control's methods directly (first two examples) or you can use the `Status` property (last two) which uses the `StatusbarHelper` instance which is the core component.
 
 ### Updating Non-Primary Panels
 The various status methods can be used to update the status bar's primary text panel and icon, but you can also set the optional center and right panels and assign text or content.
