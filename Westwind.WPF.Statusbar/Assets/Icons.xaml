@@ -20,13 +20,13 @@
   <DrawingImage x:Key="circle_exclamationDrawingImage" Drawing="{StaticResource circle_exclamationDrawingGroup}" />
   <Geometry x:Key="circle_greenGeometry">F1 M512,512z M0,0z M256,512A256,256,0,1,0,256,0A256,256,0,1,0,256,512z</Geometry>
   <DrawingGroup x:Key="circle_greenDrawingGroup" ClipGeometry="M0,0 V512 H512 V0 H0 Z">
-    <GeometryDrawing Brush="#FF338000" Geometry="{StaticResource circle_greenGeometry}" />
+    <GeometryDrawing Brush="ForestGreen" Geometry="{StaticResource circle_greenGeometry}" />
   </DrawingGroup>
   <DrawingImage x:Key="circle_greenDrawingImage" Drawing="{StaticResource circle_greenDrawingGroup}" />
   <Geometry x:Key="circle_checkGeometry1">F1 M512,512z M0,0z M256,512A256,256,0,1,0,256,0A256,256,0,1,0,256,512z M369,209L241,337C231.6,346.4,216.4,346.4,207.1,337L143.1,273C133.7,263.6 133.7,248.4 143.1,239.1 152.5,229.8 167.7,229.7 177,239.1L224,286.1 335,175C344.4,165.6 359.6,165.6 368.9,175 378.2,184.4 378.3,199.6 368.9,208.9z</Geometry>
   <Geometry x:Key="circle_checkGeometry2">F1 M512,512z M0,0z M217.95227,342.78448C216.26391,342.22524 213.84648,341.21547 212.58021,340.54055 211.31393,339.86563 194.34786,323.31727 174.87782,303.76642 135.56179,264.28722 136.56268,265.5511 136.64552,255.48783 136.78354,238.72084 155.49604,227.38245 170.37114,235.0526 173.13361,236.47703 181.08523,243.92434 198.76183,261.6427 212.26626,275.17903 223.65134,286.25421 224.06201,286.25421 224.47267,286.25421 250.20304,260.69546 281.2406,229.45699 332.6235,177.74148 338.08451,172.47516 342.27715,170.59631 349.05446,167.55921 355.34625,167.69219 362.09627,171.01522 370.56453,175.18413 375.11373,182.27826 375.21678,191.47567 375.33761,202.26026 379.97951,196.93238 305.15452,271.89176 252.14619,324.99528 237.09309,339.66064 234.06846,341.14673 229.34737,343.46632 222.20273,344.19238 217.95227,342.78448z</Geometry>
   <DrawingGroup x:Key="circle_checkDrawingGroup" ClipGeometry="M0,0 V512 H512 V0 H0 Z">
-    <GeometryDrawing Brush="#FF008000" Geometry="{StaticResource circle_checkGeometry1}" />
+    <GeometryDrawing Brush="LimeGreen" Geometry="{StaticResource circle_checkGeometry1}" />
     <GeometryDrawing Brush="#FFFFFFFF" Geometry="{StaticResource circle_checkGeometry2}" />
   </DrawingGroup>
   <DrawingImage x:Key="circle_checkDrawingImage" Drawing="{StaticResource circle_checkDrawingGroup}" />
