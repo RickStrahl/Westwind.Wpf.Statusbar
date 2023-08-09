@@ -45,19 +45,19 @@ namespace SampleApp
 
         private async void BtnProgress_OnClick(object sender, RoutedEventArgs e)
         {
-            Statusbar.Status.ShowStatusProgress("This may take a minute...");
+            Statusbar.ShowStatusProgress("This may take a minute...");
 
             await Task.Delay(2000);
 
-            Statusbar.Status.ShowStatusProgress("Still working...");
+            Statusbar.ShowStatusProgress("Still working...");
 
             await Task.Delay(2000);
 
-            Statusbar.Status.ShowStatusProgress("Getting close...");
+            Statusbar.ShowStatusProgress("Getting close...");
 
             await Task.Delay(2000);
 
-            Statusbar.Status.ShowStatusSuccess("Yay. All done with success! ");
+            Statusbar.ShowStatusSuccess("Yay. All done with success! ");
         }
 
         private async void BtnRaw_OnClick(object sender, RoutedEventArgs e)

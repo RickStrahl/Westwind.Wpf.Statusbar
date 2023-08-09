@@ -219,34 +219,6 @@ namespace Westwind.Wpf.Statusbar
             ShowStatus(message, timeout, imageSource, spin: spin, flashIcon: flashIcon);
         }
 
-        /// <summary>
-        /// Status the statusbar icon on the left bottom to some indicator
-        /// </summary>
-        /// <param name="imageSource">Allows you to explcitly set the icon's imageSource</param>
-        /// <param name="spin">Optionally spin the icon</param>
-        public void SetStatusIcon(ImageSource imageSource, bool spin = false)
-        {
-            StatusImage.Source = imageSource;
-
-            if (spin)
-            {
-                var animation = new DoubleAnimation(0, 360, TimeSpan.FromMilliseconds(2000));
-                animation.RepeatBehavior = RepeatBehavior.Forever;
-
-                var rotateTransform = new RotateTransform();
-                rotateTransform.Angle = 360;
-                rotateTransform.CenterX = StatusImage.Width / 2;
-                rotateTransform.CenterY = StatusImage.Height /2 ;
-
-                StatusImage.RenderTransform = rotateTransform;
-                rotateTransform.BeginAnimation(RotateTransform.AngleProperty, animation);
-            }
-            else
-            {
-                StatusImage.RenderTransform = null;
-            }
-        }
-
         #endregion
 
         #region Low Level Status Operations
@@ -330,6 +302,35 @@ namespace Westwind.Wpf.Statusbar
 
 
         #region Helpers
+
+        /// <summary>
+        /// Status the statusbar icon on the left bottom to some indicator
+        /// </summary>
+        /// <param name="imageSource">Allows you to explcitly set the icon's imageSource</param>
+        /// <param name="spin">Optionally spin the icon</param>
+        public void SetStatusIcon(ImageSource imageSource, bool spin = false)
+        {
+            StatusImage.Source = imageSource;
+
+            if (spin)
+            {
+                var animation = new DoubleAnimation(0, 360, TimeSpan.FromMilliseconds(2000));
+                animation.RepeatBehavior = RepeatBehavior.Forever;
+
+                var rotateTransform = new RotateTransform();
+                rotateTransform.Angle = 360;
+                rotateTransform.CenterX = StatusImage.Width / 2;
+                rotateTransform.CenterY = StatusImage.Height / 2;
+
+                StatusImage.RenderTransform = rotateTransform;
+                rotateTransform.BeginAnimation(RotateTransform.AngleProperty, animation);
+            }
+            else
+            {
+                StatusImage.RenderTransform = null;
+            }
+        }
+
 
         /// <summary>
         /// Resets the status icon to the default icon
