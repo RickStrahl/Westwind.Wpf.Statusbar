@@ -2,7 +2,7 @@
 
 	<PropertyGroup>
 		<TargetFrameworks>net6.0-Windows;net472</TargetFrameworks>
-		<Version>0.2.2</Version>
+		<Version>0.2.6</Version>
 		<UseWpf>true</UseWpf>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 

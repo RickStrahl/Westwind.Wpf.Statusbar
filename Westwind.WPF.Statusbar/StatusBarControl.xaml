@@ -24,7 +24,7 @@
                 </Grid>
             </ItemsPanelTemplate>
         </StatusBar.ItemsPanel>
-        <StatusBarItem Grid.Column="0" Margin="2,1,0,0">
+        <StatusBarItem Grid.Column="0" Margin="4,1,0,0">
             <Image x:Name="StatusIcon" Source="{StaticResource circle_greenDrawingImage}"  Height="15" Width="15" Margin="0"  />
         </StatusBarItem>
         <StatusBarItem Grid.Column="1">
@@ -35,7 +35,7 @@
                        Margin="10 0"
                        x:FieldModifier="public" HorizontalAlignment="Left" />
         </StatusBarItem>
-        <StatusBarItem Grid.Column="3">
+        <StatusBarItem Grid.Column="3" >
             <ContentControl x:Name="StatusRight" x:FieldModifier="public" HorizontalAlignment="Right" Margin="0 0 5 0" />
         </StatusBarItem>
     </StatusBar>
