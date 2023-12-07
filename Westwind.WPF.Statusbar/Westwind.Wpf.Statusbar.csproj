@@ -1,8 +1,8 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
 	<PropertyGroup>
-		<TargetFrameworks>net6.0-Windows;net472</TargetFrameworks>
-		<Version>0.2.6</Version>
+		<TargetFrameworks>net6.0-Windows;net8.0-windows;net472</TargetFrameworks>
+		<Version>0.3</Version>
 		<UseWpf>true</UseWpf>
 		<CopyLocalLockFileAssemblies>true</CopyLocalLockFileAssemblies>
 

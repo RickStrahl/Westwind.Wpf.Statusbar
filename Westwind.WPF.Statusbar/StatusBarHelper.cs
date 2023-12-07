@@ -202,11 +202,11 @@ namespace Westwind.Wpf.Statusbar
         /// Displays an Progress message using common defaults including a spinning icon
         /// </summary>
         /// <param name="message">Message to display</param>
-        /// <param name="timeout">optional timeout. -1 means don't time out</param>
+        /// <param name="timeout">optional timeout. -1 and 0 mean no timeout</param>
         /// <param name="imageSource">Optional imageSource. Defaults to spinning circle</param>
         /// <param name="spin">Determines whether the icons should spin (true by default)</param>
         /// <param name="flashIcon">If true flashes the icon when first displayed</param>
-        public void ShowStatusProgress(string message, int timeout = -1, ImageSource imageSource = null, bool spin = true, bool flashIcon = false)
+        public void ShowStatusProgress(string message, int timeout = 0, ImageSource imageSource = null, bool spin = true, bool flashIcon = false)
         {
             if (timeout == -1)
                 timeout = 0; // don't timeout
