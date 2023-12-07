@@ -1,10 +1,10 @@
 # WPF Statusbar Helper and Control
  
-
- [![](https://img.shields.io/nuget/v/Westwind.Wpf.Statusbar.svg)](https://www.nuget.org/packages/Westwind.Wpf.Statusbar/)
+[![](https://img.shields.io/nuget/v/Westwind.Wpf.Statusbar.svg)](https://www.nuget.org/packages/Westwind.Wpf.Statusbar/)
  ![](https://img.shields.io/nuget/dt/Westwind.Wpf.Statusbar.svg)
 
 ![icon](https://raw.githubusercontent.com/RickStrahl/Westwind.Wpf.Statusbar/master/Westwind.WPF.Statusbar/icon.png)
+
 
 This is a small WPF library that provides Statusbar functionality in a couple of different ways. 
 

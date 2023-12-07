@@ -135,7 +135,7 @@ namespace Westwind.Wpf.Statusbar
         /// Shows a success message with a green check icon for the timeout
         /// </summary>
         /// <param name="message">Message to display</param>
-        /// <param name="timeout">optional timeout. -1 means use the default icon</param>
+        /// <param name="timeout">optional timeout. -1 means revert back to default icon after default timeout</param>
         /// <param name="imageSource">Optional imageSource. Defaults to checkbox circle</param>
         /// <param name="flashIcon">if true flashes the icon by briefly making it larger</param>
         public void ShowStatusSuccess(string message, int timeout = -1, ImageSource imageSource = null, bool flashIcon = true)
@@ -155,7 +155,7 @@ namespace Westwind.Wpf.Statusbar
         /// Displays an error message using common defaults for a timeout milliseconds
         /// </summary>
         /// <param name="message">Message to display</param>
-        /// <param name="timeout">optional timeout. -1 means use the default icon.</param>
+        /// <param name="timeout">optional timeout. -1 means return to default icon after timeout.</param>
         /// <param name="imageSource">Optional imageSource. Defaults to red error triangle</param>
         /// <param name="flashIcon">if true flashes the icon by briefly making it larger</param>
         public void ShowStatusError(string message, int timeout = -1, 
@@ -202,7 +202,7 @@ namespace Westwind.Wpf.Statusbar
         /// Displays an Progress message using common defaults including a spinning icon
         /// </summary>
         /// <param name="message">Message to display</param>
-        /// <param name="timeout">optional timeout. -1 and 0 mean no timeout</param>
+        /// <param name="timeout">optional timeout. -1 and 0 both mean no timeout</param>
         /// <param name="imageSource">Optional imageSource. Defaults to spinning circle</param>
         /// <param name="spin">Determines whether the icons should spin (true by default)</param>
         /// <param name="flashIcon">If true flashes the icon when first displayed</param>
