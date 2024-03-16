@@ -262,7 +262,6 @@ namespace Westwind.Wpf.Statusbar
             bool spin = false, bool noDispatcher = false, 
             bool flashIcon = false)
         {
-
             if (imageSource == null)
             {
                 imageSource = StatusIcons.DefaultIcon;
@@ -341,6 +340,9 @@ namespace Westwind.Wpf.Statusbar
             StatusImage.Source = StatusIcons.DefaultIcon;
         }
 
+        public DoubleAnimation GrowAnimation { get; set;  }
+        public DoubleAnimation ShrinkAnimation { get; set;  }
+
         /// <summary>
         /// Flashes the icon briefly by making it larger then reverting back to its original size
         /// </summary>
@@ -351,20 +353,44 @@ namespace Westwind.Wpf.Statusbar
                 icon = StatusImage;
 
             var origSize = OriginalIconHeight;
-            DoubleAnimation animation = new DoubleAnimation(origSize* 1.5, TimeSpan.FromMilliseconds(700));
+            GrowAnimation = new DoubleAnimation(origSize* 1.5, TimeSpan.FromMilliseconds(700));
             
             void OnAnimationOnCompleted(object s, EventArgs e)
             {
-                var animation2 = new DoubleAnimation(origSize, TimeSpan.FromMilliseconds(500));
-                icon.BeginAnimation(Image.WidthProperty, animation2);
-                icon.BeginAnimation(Image.HeightProperty, animation2);
-
-                animation.Completed -= OnAnimationOnCompleted;
+                ShrinkAnimation = new DoubleAnimation(origSize, TimeSpan.FromMilliseconds(500));
+                icon.BeginAnimation(Image.WidthProperty, ShrinkAnimation);
+                icon.BeginAnimation(Image.HeightProperty, ShrinkAnimation);
+                
+                GrowAnimation.Completed -= OnAnimationOnCompleted;
             }
-            animation.Completed += OnAnimationOnCompleted;
+            GrowAnimation.Completed += OnAnimationOnCompleted;
 
-            icon.BeginAnimation(Image.WidthProperty, animation);
-            icon.BeginAnimation(Image.HeightProperty, animation);
+            icon.BeginAnimation(Image.WidthProperty, GrowAnimation);
+            icon.BeginAnimation(Image.HeightProperty, GrowAnimation);
+        }
+
+
+        /// <summary>
+        /// Resets the icon size to its original size and stops any animations.
+        /// Use this if you stagger operations and don't want them to flash multiple times.
+        /// 
+        /// Ideally you pass flashIcon = false, but in some cases you want the flash and
+        /// also be able to abort the flashing when done or starting another operation.
+        /// </summary>
+        public void ResetIconSize()
+        {
+            // now reset icon
+            StatusImage.Height = OriginalIconHeight;
+            StatusImage.Width = OriginalIconHeight;
+
+            // stop the animations            
+            ShrinkAnimation?.BeginAnimation(Image.WidthProperty, null);
+            ShrinkAnimation?.BeginAnimation(Image.HeightProperty, null);
+            GrowAnimation?.BeginAnimation(Image.WidthProperty, null);
+            GrowAnimation?.BeginAnimation(Image.HeightProperty, null);
+
+            StatusImage.Height = OriginalIconHeight;
+            StatusImage.Width = OriginalIconHeight;
         }
 
         #endregion
