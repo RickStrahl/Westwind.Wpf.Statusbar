@@ -17,7 +17,7 @@
 			your own status bar using a custom layout.
 		</Description>
 		<Summary>A small WPF library that provides a simple status bar control with animated status icons and various different update modes to easily create nice looking error messages.</Summary>
-		<PackageCopyright>Rick Strahl, West Wind Technologies 2023</PackageCopyright>
+		<PackageCopyright>Rick Strahl, West Wind Technologies 2023-2024</PackageCopyright>
 		<PackageTags>Statusbar WPF Windows Westwind</PackageTags>
 		<PackageProjectUrl>http://github.com/rickstrahl/westwind.Wpf.Statusbar</PackageProjectUrl>
 
