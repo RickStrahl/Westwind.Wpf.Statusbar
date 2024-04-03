@@ -9,7 +9,8 @@
 This is a small WPF library that provides Statusbar functionality in a couple of different ways. 
 
 * A basic statusbar control
-* A Statusbar Helper you can apply against your own status bars
+* A Statusbar Helper you can apply against your own status bars  
+  *(by providing an icon image control and text control)*
 
 
 ![Statusbar Animated Example](https://raw.githubusercontent.com/RickStrahl/Westwind.Wpf.Statusbar/master/ScreenCapture.gif)
