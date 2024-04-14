@@ -340,8 +340,16 @@ namespace Westwind.Wpf.Statusbar
             StatusImage.Source = StatusIcons.DefaultIcon;
         }
 
-        public DoubleAnimation GrowAnimation { get; set;  }
-        public DoubleAnimation ShrinkAnimation { get; set;  }
+        /// <summary>
+        /// Internally traced GrowAnimation for flashing the icon
+        /// </summary>
+        protected DoubleAnimation GrowAnimation { get; set;  }
+
+        /// <summary>
+        /// Internally traced ShrinkAnimation for flashing the icon
+        /// </summary>
+        protected DoubleAnimation ShrinkAnimation { get; set;  }
+
 
         /// <summary>
         /// Flashes the icon briefly by making it larger then reverting back to its original size
@@ -351,6 +359,8 @@ namespace Westwind.Wpf.Statusbar
         {
             if (icon == null)
                 icon = StatusImage;
+            if (icon == null)
+                return;
 
             var origSize = OriginalIconHeight;
             GrowAnimation = new DoubleAnimation(origSize* 1.5, TimeSpan.FromMilliseconds(700));
